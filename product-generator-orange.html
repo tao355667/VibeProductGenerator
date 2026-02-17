@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商商品主图&文案自动生成工具</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 自定义颜色 - 橙色主色调 */
+        :root {
+            --primary-color: #f59e0b;
+            --primary-dark: #d97706;
+            --secondary-color: #f97316;
+            --accent-color: #ef4444;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* 全局样式 */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* 主图样式 */
+        .product-image {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-xl);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .product-image:hover::before {
+            opacity: 1;
+        }
+
+        /* 标签样式 */
+        .tag-item {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tag-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 加载动画 */
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(245, 158, 11, 0.1);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--card-bg);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+            animation: slideIn 0.3s;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                top: 40%;
+                opacity: 0;
+                transform: translate(-50%, -40%) scale(0.9);
+            }
+            to {
+                top: 50%;
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* 复制成功提示 */
+        .copy-success {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            display: none;
+            z-index: 10000;
+            animation: slideDown 0.3s;
+            box-shadow: var(--shadow-lg);
+            font-weight: 500;
+        }
+
+        @keyframes slideDown {
+            from {
+                top: -50px;
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                top: 20px;
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 卡片样式 */
+        .custom-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* 输入框样式 */
+        .custom-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            background-color: white;
+        }
+
+        .custom-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        /* 按钮样式 */
+        .custom-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .custom-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .custom-button:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:disabled {
+            background: var(--border-color);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 文案卡片 */
+        .copyable {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(249, 115, 22, 0.05) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copyable::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .copyable:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .copyable:hover::before {
+            opacity: 1;
+        }
+
+        /* 标题样式 */
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        /* 侧边栏样式 */
+        .sidebar {
+            background: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 70px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .sidebar:hover {
+            width: 220px;
+        }
+
+        .sidebar-item {
+            padding: 20px 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sidebar-item span:last-child {
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+            transform: translateX(-10px);
+        }
+
+        .sidebar:hover .sidebar-item span:last-child {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .sidebar-item:hover {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--primary-color);
+        }
+
+        .sidebar-item.active {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* 标签页样式 */
+        .tab-container {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .tab-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-item:hover {
+            color: var(--primary-color);
+        }
+
+        .tab-item.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .product-image {
+                width: 250px;
+                height: 250px;
+            }
+
+            .custom-card {
+                padding: 16px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .sidebar {
+                width: 60px;
+            }
+
+            .sidebar:hover {
+                width: 180px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <span class="text-2xl">📋</span>
+            <span>工作台</span>
+        </div>
+        <div class="sidebar-item active">
+            <span class="text-2xl">📸</span>
+            <span>商品录入</span>
+        </div>
+        <div class="sidebar-item">
+            <span class="text-2xl">📝</span>
+            <span>任务列表</span>
+        </div>
+        <div class="sidebar-item">
+            <span class="text-2xl">🎨</span>
+            <span>模板库</span>
+        </div>
+        <div class="sidebar-item">
+            <span class="text-2xl">⚙️</span>
+            <span>设置</span>
+        </div>
+    </div>
+
+    <!-- 主要内容区域 -->
+    <div class="ml-[70px] max-w-6xl mx-auto flex flex-wrap -mx-4">
+        <!-- 首页（概览） -->
+        <div id="homePage" class="w-full px-4">
+            <div class="custom-card mt-6">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">项目概览</h2>
+                    <p class="text-sm text-gray-500">查看当前项目与整体进度</p>
+                </div>
+
+                <!-- 统计卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-xl">
+                        <div class="text-3xl font-bold mb-1">0</div>
+                        <div class="text-sm">已生成文案</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-xl">
+                        <div class="text-3xl font-bold mb-1">0</div>
+                        <div class="text-sm">已生成主图</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-xl">
+                        <div class="text-3xl font-bold mb-1">0</div>
+                        <div class="text-sm">完成任务</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-xl">
+                        <div class="text-3xl font-bold mb-1">0</div>
+                        <div class="text-sm">待处理任务</div>
+                    </div>
+                </div>
+
+                <!-- 最近任务 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">最近任务</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 border border-gray-200 rounded-xl bg-gray-50">
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="text-sm font-semibold text-gray-800">未命名任务</div>
+                                <div class="text-xs text-gray-500">2分钟前</div>
+                            </div>
+                            <div class="text-sm text-gray-600">商品数量: 0 | 状态: 未完成</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 快速操作 -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">快速操作</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button class="custom-button btn-primary">
+                            <span>📸</span>
+                            新增商品任务
+                        </button>
+                        <button class="custom-button btn-secondary">
+                            <span>📋</span>
+                            查看任务列表
+                        </button>
+                        <button class="custom-button btn-secondary">
+                            <span>🎨</span>
+                            管理模板
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商品任务列表页 -->
+        <div id="taskPage" class="w-full px-4 hidden">
+            <div class="custom-card mt-6">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">商品任务列表</h2>
+                    <p class="text-sm text-gray-500">管理和查看所有商品任务</p>
+                </div>
+
+                <!-- 搜索和筛选 -->
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <input type="text" placeholder="搜索商品名称..." class="custom-input flex-1 min-w-[200px]">
+                    <select class="custom-input min-w-[150px]">
+                        <option value="">所有状态</option>
+                        <option value="pending">待处理</option>
+                        <option value="processing">处理中</option>
+                        <option value="completed">已完成</option>
+                    </select>
+                    <button class="custom-button btn-secondary">
+                        <span>🔍</span>
+                        搜索
+                    </button>
+                </div>
+
+                <!-- 任务列表 -->
+                <div class="space-y-4">
+                    <div class="p-4 border border-gray-200 rounded-xl bg-gray-50">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="text-sm font-semibold text-gray-800">未命名任务</div>
+                            <div class="text-xs text-gray-500">2分钟前</div>
+                        </div>
+                        <div class="text-sm text-gray-600 mb-3">商品数量: 0 | 状态: 未完成</div>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="custom-button btn-primary text-sm">
+                                <span>📸</span>
+                                生成内容
+                            </button>
+                            <button class="custom-button btn-secondary text-sm">
+                                <span>📄</span>
+                                查看详情
+                            </button>
+                            <button class="custom-button btn-secondary text-sm">
+                                <span>🗑️</span>
+                                删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模板库页 -->
+        <div id="templatePage" class="w-full px-4 hidden">
+            <div class="custom-card mt-6">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">模板库</h2>
+                    <p class="text-sm text-gray-500">查看与管理收藏的图文模板</p>
+                </div>
+
+                <!-- 模板分类 -->
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button class="custom-button btn-primary text-sm">
+                        全部
+                    </button>
+                    <button class="custom-button btn-secondary text-sm">
+                        主图模板
+                    </button>
+                    <button class="custom-button btn-secondary text-sm">
+                        文案模板
+                    </button>
+                    <button class="custom-button btn-secondary text-sm">
+                        我的收藏
+                    </button>
+                </div>
+
+                <!-- 模板列表 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="h-40 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg mb-4 flex items-center justify-center text-white text-2xl">
+                            📸
+                        </div>
+                        <div class="text-sm font-semibold text-gray-800 mb-2">通用主图模板</div>
+                        <div class="text-xs text-gray-500 mb-3">适用于大部分商品类型</div>
+                        <button class="custom-button btn-primary w-full text-sm">
+                            <span>⭐</span>
+                            收藏
+                        </button>
+                    </div>
+                    <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="h-40 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg mb-4 flex items-center justify-center text-white text-2xl">
+                            📄
+                        </div>
+                        <div class="text-sm font-semibold text-gray-800 mb-2">营销文案模板</div>
+                        <div class="text-xs text-gray-500 mb-3">适用于促销活动</div>
+                        <button class="custom-button btn-primary w-full text-sm">
+                            <span>⭐</span>
+                            收藏
+                        </button>
+                    </div>
+                    <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="h-40 bg-gradient-to-r from-green-500 to-green-600 rounded-lg mb-4 flex items-center justify-center text-white text-2xl">
+                            🎨
+                        </div>
+                        <div class="text-sm font-semibold text-gray-800 mb-2">简约风格模板</div>
+                        <div class="text-xs text-gray-500 mb-3">适用于高端产品</div>
+                        <button class="custom-button btn-primary w-full text-sm">
+                            <span>⭐</span>
+                            收藏
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设置页 -->
+        <div id="settingsPage" class="w-full px-4 hidden">
+            <div class="custom-card mt-6">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">设置</h2>
+                    <p class="text-sm text-gray-500">配置基础参数和偏好</p>
+                </div>
+
+                <!-- 生成规则设置 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">默认生成规则</h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                默认文案风格
+                            </label>
+                            <select class="custom-input">
+                                <option value="simple">简洁风格</option>
+                                <option value="marketing">营销风格</option>
+                                <option value="detailed">详细风格</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                主图尺寸
+                            </label>
+                            <select class="custom-input">
+                                <option value="300x300">300x300像素</option>
+                                <option value="400x400">400x400像素</option>
+                                <option value="500x500">500x500像素</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                图片质量
+                            </label>
+                            <select class="custom-input">
+                                <option value="high">高质量</option>
+                                <option value="medium">中等质量</option>
+                                <option value="low">低质量</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 图文风格偏好 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">图文风格偏好</h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                主色调偏好
+                            </label>
+                            <input type="color" value="#f59e0b" class="custom-input w-20 h-10">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                字体样式
+                            </label>
+                            <select class="custom-input">
+                                <option value="sans">无衬线字体</option>
+                                <option value="serif">衬线字体</option>
+                                <option value="mono">等宽字体</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 保存设置 -->
+                <div class="pt-4">
+                    <button class="custom-button btn-primary">
+                        <span>💾</span>
+                        保存设置
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商品录入页（原核心功能） -->
+        <div id="productPage" class="w-full lg:w-full px-4 hidden">
+            <div class="flex flex-wrap -mx-4">
+                <!-- 左侧输入区 -->
+                <div class="w-full lg:w-2/5 px-4 mb-8 lg:mb-0">
+                    <div class="custom-card mt-6">
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-gray-800">商品录入</h2>
+                            <p class="text-sm text-gray-500">输入商品信息以生成内容</p>
+                        </div>
+
+                        <!-- 标签页 -->
+                        <div class="tab-container">
+                            <div class="tab-item active">单品录入</div>
+                            <div class="tab-item">批量导入</div>
+                        </div>
+
+                        <form id="productForm" class="space-y-6">
+                            <!-- 基础信息 -->
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">基础信息</h3>
+
+                                <!-- 商品名称 -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        商品名称 <span class="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="productName"
+                                        class="custom-input"
+                                        placeholder="例如：透气运动跑鞋"
+                                    >
+                                </div>
+
+                                <!-- 品牌和类目 -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                            品牌
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="productBrand"
+                                            class="custom-input"
+                                            placeholder="品牌名"
+                                        >
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                            类目
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="productCategory"
+                                            class="custom-input"
+                                            placeholder="例如：运动鞋"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 属性规格 -->
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">属性规格</h3>
+
+                                <!-- 材质和颜色 -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                            材质
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="productMaterial"
+                                            class="custom-input"
+                                            placeholder="例如：网面/棉质"
+                                        >
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                            颜色
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="productColor"
+                                            class="custom-input"
+                                            placeholder="例如：黑/白"
+                                        >
+                                    </div>
+                                </div>
+
+                                <!-- 尺寸和适用人群 -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                            尺寸
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="productSize"
+                                            class="custom-input"
+                                            placeholder="例如：36-44"
+                                        >
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                            适用人群
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="productAudience"
+                                            class="custom-input"
+                                            placeholder="例如：青年男性"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 视觉素材 -->
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">视觉素材</h3>
+
+                                <!-- 商品参考图 -->
+                                <div>
+                                    <input
+                                        type="file"
+                                        id="productImage"
+                                        accept="image/jpeg,image/png"
+                                        class="custom-input"
+                                    >
+                                    <div id="imagePreview" class="mt-3"></div>
+                                </div>
+                            </div>
+
+                            <!-- 核心卖点 -->
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">核心卖点</h3>
+                                <input
+                                    type="text"
+                                    id="productSellingPoints"
+                                    class="custom-input"
+                                    placeholder="输入核心卖点，用回车或逗号分隔"
+                                >
+                                <div id="tagContainer" class="mt-3"></div>
+                            </div>
+
+                            <!-- 操作按钮 -->
+                            <div class="pt-4 space-y-3">
+                                <button
+                                    type="button"
+                                    id="generateBtn"
+                                    disabled
+                                    class="custom-button btn-primary w-full"
+                                >
+                                    <span>✨</span>
+                                    立即生成草稿
+                                </button>
+                                <button
+                                    type="button"
+                                    id="fillTestDataBtn"
+                                    class="custom-button btn-secondary w-full"
+                                >
+                                    <span>📝</span>
+                                    快速填充测试数据
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 右侧结果区 -->
+                <div class="w-full lg:w-3/5 px-4">
+                    <div class="custom-card mt-6 min-h-[500px]">
+                        <!-- 结果标题 -->
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-gray-800">生成结果</h2>
+                            <p class="text-sm text-gray-500">已生成 0 个营销草稿</p>
+                        </div>
+
+                        <!-- 初始状态 -->
+                        <div id="initialState" class="h-full flex flex-col justify-center items-center text-gray-500">
+                            <div class="text-6xl mb-4 opacity-20">📄</div>
+                            <p class="text-lg font-medium text-gray-400">暂无生成内容</p>
+                            <p class="text-sm text-gray-400 mt-2">请在左侧录入商品信息并点击生成</p>
+                        </div>
+
+                        <!-- 加载状态 -->
+                        <div id="loadingState" class="h-full flex flex-col justify-center items-center text-gray-500 hidden">
+                            <div class="loading-spinner mb-6"></div>
+                            <p class="text-lg font-medium">正在生成主图和文案，请稍候...</p>
+                        </div>
+
+                        <!-- 结果展示 -->
+                        <div id="resultState" class="hidden">
+                            <!-- 主图预览区 -->
+                            <div class="mb-8">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">主图草稿（点击放大预览）</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div class="product-image" data-index="0">
+                                        <div class="text-5xl mb-3">👕</div>
+                                        <div class="text-sm font-semibold text-white" id="mainImage1Title"></div>
+                                        <div class="text-xs text-gray-200 mt-2" id="mainImage1Selling"></div>
+                                    </div>
+                                    <div class="product-image" data-index="1" style="background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);">
+                                        <div class="text-5xl mb-3">🎨</div>
+                                        <div class="text-sm font-semibold text-white" id="mainImage2Title"></div>
+                                        <div class="text-xs text-gray-200 mt-2" id="mainImage2Selling"></div>
+                                    </div>
+                                    <div class="product-image" data-index="2" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);">
+                                        <div class="text-5xl mb-3">✨</div>
+                                        <div class="text-sm font-semibold text-white" id="mainImage3Title"></div>
+                                        <div class="text-xs text-gray-200 mt-2" id="mainImage3Selling"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 文案展示区 -->
+                            <div class="mb-8">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">文案草稿（点击复制）</h3>
+
+                                <!-- 简洁版 -->
+                                <div class="mb-6 p-6 border border-gray-200 rounded-xl bg-gray-50 cursor-pointer copyable" data-type="简洁版">
+                                    <div class="text-sm font-medium text-orange-600 mb-3">✅ 简洁版</div>
+                                    <div class="text-lg font-semibold text-gray-800 mb-2" id="simpleTitle"></div>
+                                    <div class="text-sm text-gray-700 leading-relaxed" id="simpleContent"></div>
+                                </div>
+
+                                <!-- 营销版 -->
+                                <div class="mb-6 p-6 border border-gray-200 rounded-xl bg-gray-50 cursor-pointer copyable" data-type="营销版">
+                                    <div class="text-sm font-medium text-orange-600 mb-3">🚀 营销版</div>
+                                    <div class="text-lg font-semibold text-gray-800 mb-2" id="marketingTitle"></div>
+                                    <div class="text-sm text-gray-700 leading-relaxed" id="marketingContent"></div>
+                                </div>
+
+                                <!-- 详细版 -->
+                                <div class="mb-6 p-6 border border-gray-200 rounded-xl bg-gray-50 cursor-pointer copyable" data-type="详细版">
+                                    <div class="text-sm font-medium text-orange-600 mb-3">📋 详细版</div>
+                                    <div class="text-lg font-semibold text-gray-800 mb-2" id="detailedTitle"></div>
+                                    <div class="text-sm text-gray-700 leading-relaxed" id="detailedContent"></div>
+                                </div>
+                            </div>
+
+                            <!-- 操作按钮 -->
+                            <div class="flex flex-wrap gap-3 pt-4">
+                                <button
+                                    type="button"
+                                    id="regenerateBtn"
+                                    class="custom-button btn-primary flex-1"
+                                >
+                                    <span>🔄</span>
+                                    重新生成
+                                </button>
+                                <button
+                                    type="button"
+                                    id="clearResultBtn"
+                                    class="custom-button btn-secondary flex-1"
+                                >
+                                    <span>🗑️</span>
+                                    清空结果
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片预览弹窗 -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <div id="modalImageContainer" class="product-image cursor-default">
+                <div class="text-6xl mb-4" id="modalImageIcon"></div>
+                <div class="text-lg font-semibold text-white mb-2" id="modalImageTitle"></div>
+                <div class="text-sm text-gray-200" id="modalImageSelling"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 复制成功提示 -->
+    <div id="copySuccess" class="copy-success">
+        ✅ 文案已复制到剪贴板
+    </div>
+
+    <script>
+        // 全局变量
+        let tags = [];
+        let uploadedImage = null;
+
+        // DOM元素
+        const productNameInput = document.getElementById('productName');
+        const productBrandInput = document.getElementById('productBrand');
+        const productCategoryInput = document.getElementById('productCategory');
+        const productMaterialInput = document.getElementById('productMaterial');
+        const productColorInput = document.getElementById('productColor');
+        const productSizeInput = document.getElementById('productSize');
+        const productAudienceInput = document.getElementById('productAudience');
+        const productSellingPointsInput = document.getElementById('productSellingPoints');
+        const productImageInput = document.getElementById('productImage');
+        const tagContainer = document.getElementById('tagContainer');
+        const imagePreview = document.getElementById('imagePreview');
+        const generateBtn = document.getElementById('generateBtn');
+        const initialState = document.getElementById('initialState');
+        const loadingState = document.getElementById('loadingState');
+        const resultState = document.getElementById('resultState');
+        const regenerateBtn = document.getElementById('regenerateBtn');
+        const clearResultBtn = document.getElementById('clearResultBtn');
+        const imageModal = document.getElementById('imageModal');
+        const copySuccess = document.getElementById('copySuccess');
+
+        // 初始化事件监听
+        function initEventListeners() {
+            // 侧边栏导航事件
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    // 移除所有菜单项的active类
+                    sidebarItems.forEach(i => i.classList.remove('active'));
+                    // 给当前点击的菜单项添加active类
+                    item.classList.add('active');
+                    // 切换页面
+                    switchPage(index);
+                });
+            });
+
+            // 商品名称输入监听（用于启用/禁用生成按钮）
+            if (productNameInput) {
+                productNameInput.addEventListener('input', checkFormValidity);
+            }
+
+            // 核心卖点输入监听（支持回车/逗号分隔）
+            if (productSellingPointsInput) {
+                productSellingPointsInput.addEventListener('keydown', handleSellingPointsKeydown);
+            }
+
+            // 图片上传监听
+            if (productImageInput) {
+                productImageInput.addEventListener('change', handleImageUpload);
+            }
+
+            // 按钮事件
+            if (generateBtn) {
+                generateBtn.addEventListener('click', handleGenerate);
+            }
+            if (regenerateBtn) {
+                regenerateBtn.addEventListener('click', handleGenerate);
+            }
+            if (clearResultBtn) {
+                clearResultBtn.addEventListener('click', clearResult);
+            }
+            const fillTestDataBtn = document.getElementById('fillTestDataBtn');
+            if (fillTestDataBtn) {
+                fillTestDataBtn.addEventListener('click', fillTestData);
+            }
+
+            // 图片点击事件
+            document.querySelectorAll('.product-image').forEach(img => {
+                img.addEventListener('click', handleImageClick);
+            });
+
+            // 复制文案事件
+            document.querySelectorAll('.copyable').forEach(element => {
+                element.addEventListener('click', handleCopy);
+            });
+
+            // 弹窗关闭事件
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) {
+                    closeModal();
+                }
+            });
+        }
+
+        // 页面切换函数
+        function switchPage(pageIndex) {
+            // 隐藏所有页面
+            const pages = document.querySelectorAll('#homePage, #productPage, #taskPage, #templatePage, #settingsPage');
+            pages.forEach(page => page.classList.add('hidden'));
+
+            // 显示选中的页面
+            switch(pageIndex) {
+                case 0: // 工作台（首页）
+                    document.getElementById('homePage').classList.remove('hidden');
+                    break;
+                case 1: // 商品录入
+                    document.getElementById('productPage').classList.remove('hidden');
+                    break;
+                case 2: // 商品任务列表
+                    document.getElementById('taskPage').classList.remove('hidden');
+                    break;
+                case 3: // 模板库
+                    document.getElementById('templatePage').classList.remove('hidden');
+                    break;
+                case 4: // 设置
+                    document.getElementById('settingsPage').classList.remove('hidden');
+                    break;
+            }
+        }
+
+        // 检查表单验证
+        function checkFormValidity() {
+            if (productNameInput && generateBtn) {
+                const productName = productNameInput.value.trim();
+                generateBtn.disabled = productName === '';
+            }
+        }
+
+        // 处理核心卖点输入
+        function handleSellingPointsKeydown(e) {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                addTag();
+            }
+        }
+
+        // 添加标签
+        function addTag() {
+            if (productSellingPointsInput && tagContainer) {
+                const value = productSellingPointsInput.value.trim();
+                if (value && tags.length < 5 && !tags.includes(value)) {
+                    tags.push(value);
+                    renderTags();
+                    productSellingPointsInput.value = '';
+                }
+            }
+        }
+
+        // 渲染标签
+        function renderTags() {
+            if (tagContainer) {
+                tagContainer.innerHTML = '';
+                tags.forEach((tag, index) => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag-item';
+                    tagElement.textContent = tag;
+                    tagElement.addEventListener('click', () => removeTag(index));
+                    tagContainer.appendChild(tagElement);
+                });
+            }
+        }
+
+        // 删除标签
+        function removeTag(index) {
+            tags.splice(index, 1);
+            renderTags();
+        }
+
+        // 处理图片上传
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (file && imagePreview) {
+                // 验证文件类型和大小
+                if (!file.type.match('image.*')) {
+                    alert('请选择图片文件');
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('图片大小不能超过5MB');
+                    return;
+                }
+
+                // 读取图片并预览
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImage = e.target.result;
+                    imagePreview.innerHTML = `
+                        <div class="relative inline-block">
+                            <img src="${uploadedImage}" alt="预览图" class="w-40 h-40 object-cover rounded-lg shadow-md">
+                            <button type="button" onclick="removeImage()" class="absolute -top-3 -right-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm hover:bg-red-600 transition-all duration-200 hover:scale-110">
+                                ×
+                            </button>
+                        </div>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 删除图片
+        function removeImage() {
+            uploadedImage = null;
+            if (productImageInput) {
+                productImageInput.value = '';
+            }
+            if (imagePreview) {
+                imagePreview.innerHTML = '';
+            }
+        }
+
+        // 处理生成
+        function handleGenerate() {
+            if (initialState && loadingState && resultState && generateBtn && regenerateBtn) {
+                // 显示加载状态
+                initialState.classList.add('hidden');
+                loadingState.classList.remove('hidden');
+                resultState.classList.add('hidden');
+
+                // 禁用按钮
+                generateBtn.disabled = true;
+                regenerateBtn.disabled = true;
+
+                // 模拟生成过程
+                setTimeout(() => {
+                    generateMockResult();
+                    loadingState.classList.add('hidden');
+                    resultState.classList.remove('hidden');
+                    generateBtn.disabled = false;
+                    regenerateBtn.disabled = false;
+                }, 2000);
+            }
+        }
+
+        // 生成模拟结果
+        function generateMockResult() {
+            if (productNameInput && productBrandInput && productCategoryInput &&
+                productMaterialInput && productColorInput && productSizeInput && productAudienceInput) {
+                const productName = productNameInput.value.trim();
+                const productBrand = productBrandInput.value.trim();
+                const productCategory = productCategoryInput.value.trim();
+                const productMaterial = productMaterialInput.value.trim();
+                const productColor = productColorInput.value.trim();
+                const productSize = productSizeInput.value.trim();
+                const productAudience = productAudienceInput.value.trim();
+                const productPrice = '价格面议';
+                const productScene = '多种场景适用';
+
+                // 渲染主图
+                const imageIcons = ['👕', '🎨', '✨'];
+                const imageTitles = [
+                    productName,
+                    productName + ' - 限时优惠',
+                    productName + ' - 新品上市'
+                ];
+                const imageSelling = tags.length > 0 ? tags.join(' · ') : '品质保证 · 放心选购';
+
+                for (let i = 0; i < 3; i++) {
+                    const imageTitle = document.getElementById(`mainImage${i + 1}Title`);
+                    const imageSellingEl = document.getElementById(`mainImage${i + 1}Selling`);
+                    if (imageTitle && imageSellingEl) {
+                        imageTitle.textContent = imageTitles[i];
+                        imageSellingEl.textContent = imageSelling;
+                    }
+                }
+
+                // 渲染文案
+
+                // 简洁版
+                const simpleTitle = document.getElementById('simpleTitle');
+                const simpleContent = document.getElementById('simpleContent');
+                if (simpleTitle && simpleContent) {
+                    simpleTitle.textContent = productName;
+                    simpleContent.textContent =
+                        `${productName}，${productBrand ? productBrand + '品牌' : '品质好物'}，${productScene}，${productPrice}，欢迎选购！`;
+                }
+
+                // 营销版
+                const marketingTitle = document.getElementById('marketingTitle');
+                const marketingContent = document.getElementById('marketingContent');
+                if (marketingTitle && marketingContent) {
+                    marketingTitle.textContent = `【热销爆款】${productName}`;
+                    marketingContent.textContent =
+                        `🔥 限时抢购！${productName} ${productPrice}！${tags.length > 0 ? tags.join('，') + '，' : ''}${productScene}，库存有限，先到先得！`;
+                }
+
+                // 详细版
+                const detailedTitle = document.getElementById('detailedTitle');
+                const detailedContent = document.getElementById('detailedContent');
+                if (detailedTitle && detailedContent) {
+                    detailedTitle.textContent = `${productName} - 优质之选`;
+                    detailedContent.textContent =
+                        `✅ 产品名称：${productName}\n` +
+                        `✅ 品牌：${productBrand || '知名品牌'}\n` +
+                        `✅ 类目：${productCategory || '精选类目'}\n` +
+                        `✅ 产品特点：${tags.length > 0 ? tags.join('、') : '品质优良，设计精美'}\n` +
+                        `✅ 材质：${productMaterial || '精选材质'}\n` +
+                        `✅ 颜色：${productColor || '多种颜色'}\n` +
+                        `✅ 尺寸：${productSize || '多种尺寸'}\n` +
+                        `✅ 适用人群：${productAudience || '广泛适用'}\n` +
+                        `✅ 适用场景：${productScene}\n` +
+                        `✅ 价格信息：${productPrice}\n` +
+                        `✅ 品质保证：我们承诺提供优质产品和完善的售后服务，让您购物无忧！`;
+                }
+            }
+        }
+
+        // 清空结果
+        function clearResult() {
+            if (initialState && resultState) {
+                initialState.classList.remove('hidden');
+                resultState.classList.add('hidden');
+            }
+        }
+
+        // 快速填充测试数据
+        function fillTestData() {
+            // 填充基础信息
+            if (productNameInput) {
+                productNameInput.value = '夏季透气运动跑鞋 男女同款';
+            }
+            if (productBrandInput) {
+                productBrandInput.value = 'Nike';
+            }
+            if (productCategoryInput) {
+                productCategoryInput.value = '运动鞋';
+            }
+            if (productMaterialInput) {
+                productMaterialInput.value = '网面/透气';
+            }
+            if (productColorInput) {
+                productColorInput.value = '黑白';
+            }
+            if (productSizeInput) {
+                productSizeInput.value = '36-44';
+            }
+            if (productAudienceInput) {
+                productAudienceInput.value = '青年';
+            }
+
+            // 填充核心卖点
+            tags = ['透气轻便', '防滑耐磨', '时尚百搭', '缓震舒适'];
+            renderTags();
+
+            // 启用生成按钮
+            checkFormValidity();
+        }
+
+        // 处理图片点击
+        function handleImageClick(e) {
+            const index = e.currentTarget.dataset.index;
+            const imageIcons = ['👕', '🎨', '✨'];
+            const imageTitles = [
+                productNameInput.value.trim(),
+                productNameInput.value.trim() + ' - 限时优惠',
+                productNameInput.value.trim() + ' - 新品上市'
+            ];
+            const imageSelling = tags.length > 0 ? tags.join(' · ') : '品质保证 · 放心选购';
+
+            // 填充弹窗内容
+            document.getElementById('modalImageIcon').textContent = imageIcons[index];
+            document.getElementById('modalImageTitle').textContent = imageTitles[index];
+            document.getElementById('modalImageSelling').textContent = imageSelling;
+
+            // 设置弹窗图片背景颜色
+            const gradientColors = [
+                'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)',
+                'linear-gradient(135deg, #fb923c 0%, #f97316 100%)',
+                'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)'
+            ];
+            document.getElementById('modalImageContainer').style.background = gradientColors[index];
+
+            // 显示弹窗
+            imageModal.style.display = 'block';
+        }
+
+        // 关闭弹窗
+        function closeModal() {
+            imageModal.style.display = 'none';
+        }
+
+        // 处理文案复制
+        function handleCopy(e) {
+            const element = e.currentTarget;
+            const type = element.dataset.type;
+            const title = element.querySelector('div.text-lg').textContent;
+            const content = element.querySelector('div.text-sm').textContent;
+
+            // 复制到剪贴板
+            const text = `${type}\n${title}\n${content}`;
+            navigator.clipboard.writeText(text).then(() => {
+                // 显示复制成功提示
+                copySuccess.style.display = 'block';
+                setTimeout(() => {
+                    copySuccess.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // 初始化应用
+        function init() {
+            initEventListeners();
+            checkFormValidity();
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
