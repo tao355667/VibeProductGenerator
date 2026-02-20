@@ -89,6 +89,14 @@ VibeProductGenerator/
   - 营销版：适合促销活动
   - 详细版：包含完整商品信息
 
+## 示例图片
+
+![1771617329811](image/README/1771617329811.png)
+
+![1771617318103](image/README/1771617318103.png)
+
+![1771617269554](image/README/1771617269554.png)
+
 ## 📄 许可证
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
