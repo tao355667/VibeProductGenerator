@@ -22,15 +22,31 @@
 
 ## 🚀 快速开始
 
-### 直接使用
-1. 下载项目文件到本地
-2. 直接在浏览器中打开 `product-generator-orange.html` 文件
-3. 开始使用商品录入功能
+### 环境准备
+1. 安装 Node.js（建议 18+）
+2. 下载项目后在项目根目录安装依赖：`npm install`
+
+### 密钥配置（仅需配置 ARK_API_KEY）
+在项目根目录创建 `.env` 文件，并写入：
+
+```dotenv
+ARK_API_KEY=你的火山引擎方舟API密钥
+```
+
+> 说明：前端不再保存密钥，所有 AI 请求通过本地 `server.js` 代理转发。
+
+### 启动项目
+1. 在项目根目录运行：`npm run start`
+2. 浏览器打开：`http://localhost:3000`
+3. 开始使用文案生成、图片卖点分析、电商海报生成功能
 
 ### 项目结构
 ```
 VibeProductGenerator/
+├── .env                            # 环境变量（仅 ARK_API_KEY）
+├── server.js                       # 本地代理服务（隐藏 API Key）
 ├── product-generator-orange.html  # 主应用文件
+├── package.json                    # 依赖与启动脚本
 ├── LICENSE                        # MIT 许可证
 └── README.md                      # 项目说明文档
 ```
@@ -105,8 +121,8 @@ VibeProductGenerator/
 
 ## 📝 注意事项
 
-- 本工具目前使用模拟数据进行演示
-- 图片上传功能支持本地预览
+- `.env` 文件请勿提交到 Git 仓库（项目已默认忽略）
+- 若密钥疑似泄露，请立即在火山引擎控制台轮换 `ARK_API_KEY`
 - 生成结果可直接复制使用
 - 建议使用现代浏览器（Chrome/Edge/Firefox）以获得最佳体验
 

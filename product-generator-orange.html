@@ -437,15 +437,23 @@
             <span>工作台</span>
         </div>
         <div class="sidebar-item active">
-            <span class="text-2xl">📸</span>
-            <span>商品录入</span>
+            <span class="text-2xl">📝</span>
+            <span>文案生成</span>
         </div>
         <div class="sidebar-item">
-            <span class="text-2xl">📝</span>
-            <span>任务列表</span>
+            <span class="text-2xl">🖼️</span>
+            <span>图片卖点</span>
         </div>
         <div class="sidebar-item">
             <span class="text-2xl">🎨</span>
+            <span>电商海报</span>
+        </div>
+        <div class="sidebar-item">
+            <span class="text-2xl">📊</span>
+            <span>任务列表</span>
+        </div>
+        <div class="sidebar-item">
+            <span class="text-2xl">🏛️</span>
             <span>模板库</span>
         </div>
         <div class="sidebar-item">
@@ -715,42 +723,34 @@
             </div>
         </div>
 
-        <!-- 商品录入页（原核心功能） -->
-        <div id="productPage" class="w-full lg:w-full px-4 hidden">
+        <!-- 文案生成页 -->
+        <div id="copywritingPage" class="w-full lg:w-full px-4 hidden">
             <div class="flex flex-wrap -mx-4">
                 <!-- 左侧输入区 -->
                 <div class="w-full lg:w-2/5 px-4 mb-8 lg:mb-0">
                     <div class="custom-card mt-6">
                         <div class="mb-6">
-                            <h2 class="text-xl font-bold text-gray-800">商品录入</h2>
-                            <p class="text-sm text-gray-500">输入商品信息以生成内容</p>
+                            <h2 class="text-xl font-bold text-gray-800">文案生成</h2>
+                            <p class="text-sm text-gray-500">输入商品信息生成抖音电商文案</p>
                         </div>
 
-                        <!-- 标签页 -->
-                        <div class="tab-container">
-                            <div class="tab-item active">单品录入</div>
-                            <div class="tab-item">批量导入</div>
-                        </div>
-
-                        <form id="productForm" class="space-y-6">
+                        <form id="copywritingForm" class="space-y-6">
                             <!-- 基础信息 -->
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-700 mb-4">基础信息</h3>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">商品信息</h3>
 
-                                <!-- 商品名称 -->
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">
                                         商品名称 <span class="text-red-500">*</span>
                                     </label>
                                     <input
                                         type="text"
-                                        id="productName"
+                                        id="copywritingProductName"
                                         class="custom-input"
                                         placeholder="例如：透气运动跑鞋"
                                     >
                                 </div>
 
-                                <!-- 品牌和类目 -->
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -758,7 +758,7 @@
                                         </label>
                                         <input
                                             type="text"
-                                            id="productBrand"
+                                            id="copywritingProductBrand"
                                             class="custom-input"
                                             placeholder="品牌名"
                                         >
@@ -769,113 +769,71 @@
                                         </label>
                                         <input
                                             type="text"
-                                            id="productCategory"
+                                            id="copywritingProductCategory"
                                             class="custom-input"
                                             placeholder="例如：运动鞋"
                                         >
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- 属性规格 -->
-                            <div>
-                                <h3 class="text-sm font-semibold text-gray-700 mb-4">属性规格</h3>
-
-                                <!-- 材质和颜色 -->
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                            材质
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="productMaterial"
-                                            class="custom-input"
-                                            placeholder="例如：网面/棉质"
-                                        >
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                            颜色
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="productColor"
-                                            class="custom-input"
-                                            placeholder="例如：黑/白"
-                                        >
-                                    </div>
-                                </div>
-
-                                <!-- 尺寸和适用人群 -->
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                            尺寸
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="productSize"
-                                            class="custom-input"
-                                            placeholder="例如：36-44"
-                                        >
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                            适用人群
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="productAudience"
-                                            class="custom-input"
-                                            placeholder="例如：青年男性"
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 视觉素材 -->
-                            <div>
-                                <h3 class="text-sm font-semibold text-gray-700 mb-4">视觉素材</h3>
-
-                                <!-- 商品参考图 -->
                                 <div>
-                                    <input
-                                        type="file"
-                                        id="productImage"
-                                        accept="image/jpeg,image/png"
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        商品描述
+                                    </label>
+                                    <textarea
+                                        id="copywritingProductDescription"
                                         class="custom-input"
-                                    >
-                                    <div id="imagePreview" class="mt-3"></div>
+                                        rows="4"
+                                        placeholder="输入商品的详细描述、特色功能等"
+                                    ></textarea>
                                 </div>
                             </div>
 
-                            <!-- 核心卖点 -->
+                            <!-- 风格选择 -->
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-700 mb-4">核心卖点</h3>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">文案风格</h3>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="copywritingStyle" value="simple" checked class="mr-2">
+                                        <span class="text-sm text-gray-700">简洁风格</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="copywritingStyle" value="marketing" class="mr-2">
+                                        <span class="text-sm text-gray-700">营销风格</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="copywritingStyle" value="detailed" class="mr-2">
+                                        <span class="text-sm text-gray-700">详细风格</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- 图片上传 -->
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">商品图片（可选）</h3>
                                 <input
-                                    type="text"
-                                    id="productSellingPoints"
+                                    type="file"
+                                    id="copywritingProductImage"
+                                    accept="image/jpeg,image/png"
                                     class="custom-input"
-                                    placeholder="输入核心卖点，用回车或逗号分隔"
                                 >
-                                <div id="tagContainer" class="mt-3"></div>
+                                <div id="copywritingImagePreview" class="mt-3"></div>
                             </div>
 
                             <!-- 操作按钮 -->
                             <div class="pt-4 space-y-3">
                                 <button
                                     type="button"
-                                    id="generateBtn"
+                                    id="generateCopywritingBtn"
                                     disabled
                                     class="custom-button btn-primary w-full"
                                 >
                                     <span>✨</span>
-                                    立即生成草稿
+                                    生成文案
                                 </button>
                                 <button
                                     type="button"
-                                    id="fillTestDataBtn"
+                                    id="fillCopywritingTestDataBtn"
                                     class="custom-button btn-secondary w-full"
                                 >
                                     <span>📝</span>
@@ -892,69 +850,47 @@
                         <!-- 结果标题 -->
                         <div class="mb-6">
                             <h2 class="text-xl font-bold text-gray-800">生成结果</h2>
-                            <p class="text-sm text-gray-500">已生成 0 个营销草稿</p>
+                            <p class="text-sm text-gray-500">已生成文案</p>
                         </div>
 
                         <!-- 初始状态 -->
-                        <div id="initialState" class="h-full flex flex-col justify-center items-center text-gray-500">
+                        <div id="copywritingInitialState" class="h-full flex flex-col justify-center items-center text-gray-500">
                             <div class="text-6xl mb-4 opacity-20">📄</div>
                             <p class="text-lg font-medium text-gray-400">暂无生成内容</p>
                             <p class="text-sm text-gray-400 mt-2">请在左侧录入商品信息并点击生成</p>
                         </div>
 
                         <!-- 加载状态 -->
-                        <div id="loadingState" class="h-full flex flex-col justify-center items-center text-gray-500 hidden">
+                        <div id="copywritingLoadingState" class="h-full flex flex-col justify-center items-center text-gray-500 hidden">
                             <div class="loading-spinner mb-6"></div>
-                            <p class="text-lg font-medium">正在生成主图和文案，请稍候...</p>
+                            <p class="text-lg font-medium">正在生成文案，请稍候...</p>
+                        </div>
+
+                        <!-- 错误状态 -->
+                        <div id="copywritingErrorState" class="h-full flex flex-col justify-center items-center text-red-500 hidden">
+                            <div class="text-6xl mb-4 opacity-50">⚠️</div>
+                            <p class="text-lg font-medium text-red-600">生成失败</p>
+                            <p class="text-sm text-red-500 mt-2" id="copywritingErrorMsg">请检查输入信息或网络连接后重试</p>
+                            <div class="pt-4">
+                                <button
+                                    type="button"
+                                    id="copywritingRetryBtn"
+                                    class="custom-button btn-primary"
+                                >
+                                    <span>🔄</span>
+                                    重试
+                                </button>
+                            </div>
                         </div>
 
                         <!-- 结果展示 -->
-                        <div id="resultState" class="hidden">
-                            <!-- 主图预览区 -->
+                        <div id="copywritingResultState" class="hidden">
+                            <!-- 文案展示 -->
                             <div class="mb-8">
-                                <h3 class="text-lg font-semibold text-gray-800 mb-4">主图草稿（点击放大预览）</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div class="product-image" data-index="0">
-                                        <div class="text-5xl mb-3">👕</div>
-                                        <div class="text-sm font-semibold text-white" id="mainImage1Title"></div>
-                                        <div class="text-xs text-gray-200 mt-2" id="mainImage1Selling"></div>
-                                    </div>
-                                    <div class="product-image" data-index="1" style="background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);">
-                                        <div class="text-5xl mb-3">🎨</div>
-                                        <div class="text-sm font-semibold text-white" id="mainImage2Title"></div>
-                                        <div class="text-xs text-gray-200 mt-2" id="mainImage2Selling"></div>
-                                    </div>
-                                    <div class="product-image" data-index="2" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);">
-                                        <div class="text-5xl mb-3">✨</div>
-                                        <div class="text-sm font-semibold text-white" id="mainImage3Title"></div>
-                                        <div class="text-xs text-gray-200 mt-2" id="mainImage3Selling"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 文案展示区 -->
-                            <div class="mb-8">
-                                <h3 class="text-lg font-semibold text-gray-800 mb-4">文案草稿（点击复制）</h3>
-
-                                <!-- 简洁版 -->
-                                <div class="mb-6 p-6 border border-gray-200 rounded-xl bg-gray-50 cursor-pointer copyable" data-type="简洁版">
-                                    <div class="text-sm font-medium text-orange-600 mb-3">✅ 简洁版</div>
-                                    <div class="text-lg font-semibold text-gray-800 mb-2" id="simpleTitle"></div>
-                                    <div class="text-sm text-gray-700 leading-relaxed" id="simpleContent"></div>
-                                </div>
-
-                                <!-- 营销版 -->
-                                <div class="mb-6 p-6 border border-gray-200 rounded-xl bg-gray-50 cursor-pointer copyable" data-type="营销版">
-                                    <div class="text-sm font-medium text-orange-600 mb-3">🚀 营销版</div>
-                                    <div class="text-lg font-semibold text-gray-800 mb-2" id="marketingTitle"></div>
-                                    <div class="text-sm text-gray-700 leading-relaxed" id="marketingContent"></div>
-                                </div>
-
-                                <!-- 详细版 -->
-                                <div class="mb-6 p-6 border border-gray-200 rounded-xl bg-gray-50 cursor-pointer copyable" data-type="详细版">
-                                    <div class="text-sm font-medium text-orange-600 mb-3">📋 详细版</div>
-                                    <div class="text-lg font-semibold text-gray-800 mb-2" id="detailedTitle"></div>
-                                    <div class="text-sm text-gray-700 leading-relaxed" id="detailedContent"></div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">文案预览（点击复制）</h3>
+                                <div class="p-6 border border-gray-200 rounded-xl bg-gray-50 cursor-pointer copyable" data-type="生成文案">
+                                    <div class="text-lg font-semibold text-gray-800 mb-2" id="generatedCopywritingTitle"></div>
+                                    <div class="text-sm text-gray-700 leading-relaxed" id="generatedCopywritingContent"></div>
                                 </div>
                             </div>
 
@@ -962,7 +898,7 @@
                             <div class="flex flex-wrap gap-3 pt-4">
                                 <button
                                     type="button"
-                                    id="regenerateBtn"
+                                    id="regenerateCopywritingBtn"
                                     class="custom-button btn-primary flex-1"
                                 >
                                     <span>🔄</span>
@@ -970,7 +906,7 @@
                                 </button>
                                 <button
                                     type="button"
-                                    id="clearResultBtn"
+                                    id="clearCopywritingResultBtn"
                                     class="custom-button btn-secondary flex-1"
                                 >
                                     <span>🗑️</span>
@@ -982,6 +918,337 @@
                 </div>
             </div>
         </div>
+
+        <!-- 图片卖点分析页 -->
+        <div id="imageAnalysisPage" class="w-full lg:w-full px-4 hidden">
+            <div class="flex flex-wrap -mx-4">
+                <!-- 左侧输入区 -->
+                <div class="w-full lg:w-2/5 px-4 mb-8 lg:mb-0">
+                    <div class="custom-card mt-6">
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-gray-800">图片卖点分析</h2>
+                            <p class="text-sm text-gray-500">上传商品图片自动分析卖点</p>
+                        </div>
+
+                        <form id="imageAnalysisForm" class="space-y-6">
+                            <!-- 图片上传 -->
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">商品图片 <span class="text-red-500">*</span></h3>
+                                <input
+                                    type="file"
+                                    id="imageAnalysisProductImage"
+                                    accept="image/jpeg,image/png"
+                                    class="custom-input"
+                                >
+                                <div id="imageAnalysisImagePreview" class="mt-3"></div>
+                            </div>
+
+                            <!-- 操作按钮 -->
+                            <div class="pt-4 space-y-3">
+                                <button
+                                    type="button"
+                                    id="analyzeImageBtn"
+                                    disabled
+                                    class="custom-button btn-primary w-full"
+                                >
+                                    <span>📷</span>
+                                    分析图片卖点
+                                </button>
+                                <button
+                                    type="button"
+                                    id="fillImageAnalysisTestDataBtn"
+                                    class="custom-button btn-secondary w-full"
+                                >
+                                    <span>📝</span>
+                                    快速填充测试数据
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 右侧结果区 -->
+                <div class="w-full lg:w-3/5 px-4">
+                    <div class="custom-card mt-6 min-h-[500px]">
+                        <!-- 结果标题 -->
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-gray-800">分析结果</h2>
+                            <p class="text-sm text-gray-500">图片卖点和关键词</p>
+                        </div>
+
+                        <!-- 初始状态 -->
+                        <div id="imageAnalysisInitialState" class="h-full flex flex-col justify-center items-center text-gray-500">
+                            <div class="text-6xl mb-4 opacity-20">🎯</div>
+                            <p class="text-lg font-medium text-gray-400">暂无分析结果</p>
+                            <p class="text-sm text-gray-400 mt-2">请上传商品图片并点击分析</p>
+                        </div>
+
+                        <!-- 加载状态 -->
+                        <div id="imageAnalysisLoadingState" class="h-full flex flex-col justify-center items-center text-gray-500 hidden">
+                            <div class="loading-spinner mb-6"></div>
+                            <p class="text-lg font-medium">正在分析图片，请稍候...</p>
+                        </div>
+
+                        <!-- 错误状态 -->
+                        <div id="imageAnalysisErrorState" class="h-full flex flex-col justify-center items-center text-red-500 hidden">
+                            <div class="text-6xl mb-4 opacity-50">⚠️</div>
+                            <p class="text-lg font-medium text-red-600">分析失败</p>
+                            <p class="text-sm text-red-500 mt-2" id="imageAnalysisErrorMsg">请检查输入信息或网络连接后重试</p>
+                            <div class="pt-4">
+                                <button
+                                    type="button"
+                                    id="imageAnalysisRetryBtn"
+                                    class="custom-button btn-primary"
+                                >
+                                    <span>🔄</span>
+                                    重试
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 结果展示 -->
+                        <div id="imageAnalysisResultState" class="hidden">
+                            <!-- 卖点展示 -->
+                            <div class="mb-8">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">核心卖点</h3>
+                                <div id="imageAnalysisSellingPoints" class="flex flex-wrap gap-2"></div>
+                            </div>
+
+                            <!-- 关键词展示 -->
+                            <div class="mb-8">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">关键词</h3>
+                                <div id="imageAnalysisKeywords" class="flex flex-wrap gap-2"></div>
+                            </div>
+
+                            <!-- 图片描述 -->
+                            <div class="mb-8">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">图片描述</h3>
+                                <div class="p-6 border border-gray-200 rounded-xl bg-gray-50" id="imageAnalysisDescription"></div>
+                            </div>
+
+                            <!-- 操作按钮 -->
+                            <div class="flex flex-wrap gap-3 pt-4">
+                                <button
+                                    type="button"
+                                    id="reanalyzeImageBtn"
+                                    class="custom-button btn-primary flex-1"
+                                >
+                                    <span>🔄</span>
+                                    重新分析
+                                </button>
+                                <button
+                                    type="button"
+                                    id="clearImageAnalysisResultBtn"
+                                    class="custom-button btn-secondary flex-1"
+                                >
+                                    <span>🗑️</span>
+                                    清空结果
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 电商海报生成页 -->
+        <div id="posterPage" class="w-full lg:w-full px-4 hidden">
+            <div class="flex flex-wrap -mx-4">
+                <!-- 左侧输入区 -->
+                <div class="w-full lg:w-2/5 px-4 mb-8 lg:mb-0">
+                    <div class="custom-card mt-6">
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-gray-800">电商海报生成</h2>
+                            <p class="text-sm text-gray-500">输入商品信息生成电商海报</p>
+                        </div>
+
+                        <form id="posterForm" class="space-y-6">
+                            <!-- 基础信息 -->
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">商品信息</h3>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        商品名称 <span class="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="posterProductName"
+                                        class="custom-input"
+                                        placeholder="例如：透气运动跑鞋"
+                                    >
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                            品牌
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="posterProductBrand"
+                                            class="custom-input"
+                                            placeholder="品牌名"
+                                        >
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                            价格
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="posterProductPrice"
+                                            class="custom-input"
+                                            placeholder="例如：¥199"
+                                        >
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        促销文案
+                                    </label>
+                                    <textarea
+                                        id="posterPromotionCopy"
+                                        class="custom-input"
+                                        rows="3"
+                                        placeholder="输入促销文案，例如：限时优惠，买一送一！"
+                                    ></textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        卖点关键词
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="posterSellingPoints"
+                                        class="custom-input"
+                                        placeholder="输入核心卖点，用逗号分隔"
+                                    >
+                                    <div id="posterTagsContainer" class="mt-3"></div>
+                                </div>
+                            </div>
+
+                            <!-- 海报样式 -->
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-700 mb-4">海报样式</h3>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="posterStyle" value="modern" checked class="mr-2">
+                                        <span class="text-sm text-gray-700">现代风格</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="posterStyle" value="minimal" class="mr-2">
+                                        <span class="text-sm text-gray-700">简约风格</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="posterStyle" value="luxury" class="mr-2">
+                                        <span class="text-sm text-gray-700">奢华风格</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- 操作按钮 -->
+                            <div class="pt-4 space-y-3">
+                                <button
+                                    type="button"
+                                    id="generatePosterBtn"
+                                    disabled
+                                    class="custom-button btn-primary w-full"
+                                >
+                                    <span>🎨</span>
+                                    生成海报
+                                </button>
+                                <button
+                                    type="button"
+                                    id="fillPosterTestDataBtn"
+                                    class="custom-button btn-secondary w-full"
+                                >
+                                    <span>📝</span>
+                                    快速填充测试数据
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 右侧结果区 -->
+                <div class="w-full lg:w-3/5 px-4">
+                    <div class="custom-card mt-6 min-h-[500px]">
+                        <!-- 结果标题 -->
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-gray-800">海报预览</h2>
+                            <p class="text-sm text-gray-500">生成的电商海报</p>
+                        </div>
+
+                        <!-- 初始状态 -->
+                        <div id="posterInitialState" class="h-full flex flex-col justify-center items-center text-gray-500">
+                            <div class="text-6xl mb-4 opacity-20">🎨</div>
+                            <p class="text-lg font-medium text-gray-400">暂无生成的海报</p>
+                            <p class="text-sm text-gray-400 mt-2">请在左侧录入商品信息并点击生成</p>
+                        </div>
+
+                        <!-- 加载状态 -->
+                        <div id="posterLoadingState" class="h-full flex flex-col justify-center items-center text-gray-500 hidden">
+                            <div class="loading-spinner mb-6"></div>
+                            <p class="text-lg font-medium">正在生成海报，请稍候...</p>
+                        </div>
+
+                        <!-- 错误状态 -->
+                        <div id="posterErrorState" class="h-full flex flex-col justify-center items-center text-red-500 hidden">
+                            <div class="text-6xl mb-4 opacity-50">⚠️</div>
+                            <p class="text-lg font-medium text-red-600">生成失败</p>
+                            <p class="text-sm text-red-500 mt-2" id="posterErrorMsg">请检查输入信息或网络连接后重试</p>
+                            <div class="pt-4">
+                                <button
+                                    type="button"
+                                    id="posterRetryBtn"
+                                    class="custom-button btn-primary"
+                                >
+                                    <span>🔄</span>
+                                    重试
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 结果展示 -->
+                        <div id="posterResultState" class="hidden">
+                            <!-- 海报预览 -->
+                            <div class="mb-8">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">海报预览（点击下载）</h3>
+                                <div id="posterImageContainer" class="border border-gray-200 rounded-xl p-4 bg-gray-50 text-center">
+                                    <img id="posterImage" src="" alt="电商海报" class="w-full h-auto rounded-lg object-contain max-h-96 mx-auto">
+                                    <div class="flex justify-center gap-2 mt-3">
+                                        <button type="button" id="downloadPosterBtn" class="custom-button btn-primary text-sm">
+                                            <span>📥</span>
+                                            下载海报
+                                        </button>
+                                        <button type="button" id="regeneratePosterBtn" class="custom-button btn-secondary text-sm">
+                                            <span>🔄</span>
+                                            重新生成
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 操作按钮 -->
+                            <div class="flex flex-wrap gap-3 pt-4">
+                                <button
+                                    type="button"
+                                    id="clearPosterResultBtn"
+                                    class="custom-button btn-secondary w-full"
+                                >
+                                    <span>🗑️</span>
+                                    清空结果
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- 图片预览弹窗 -->
@@ -1001,30 +1268,80 @@
     </div>
 
     <script>
+        // API 配置（通过本地代理转发，避免在前端暴露 API Key）
+        const API_CONFIG = {
+            // 文本生成 API
+            text: {
+                url: '/api/text'
+            },
+            // 图像生成 API
+            image: {
+                url: '/api/image'
+            }
+        };
+
         // 全局变量
         let tags = [];
         let uploadedImage = null;
 
-        // DOM元素
-        const productNameInput = document.getElementById('productName');
-        const productBrandInput = document.getElementById('productBrand');
-        const productCategoryInput = document.getElementById('productCategory');
-        const productMaterialInput = document.getElementById('productMaterial');
-        const productColorInput = document.getElementById('productColor');
-        const productSizeInput = document.getElementById('productSize');
-        const productAudienceInput = document.getElementById('productAudience');
-        const productSellingPointsInput = document.getElementById('productSellingPoints');
-        const productImageInput = document.getElementById('productImage');
-        const tagContainer = document.getElementById('tagContainer');
-        const imagePreview = document.getElementById('imagePreview');
-        const generateBtn = document.getElementById('generateBtn');
-        const initialState = document.getElementById('initialState');
-        const loadingState = document.getElementById('loadingState');
-        const resultState = document.getElementById('resultState');
-        const regenerateBtn = document.getElementById('regenerateBtn');
-        const clearResultBtn = document.getElementById('clearResultBtn');
-        const imageModal = document.getElementById('imageModal');
-        const copySuccess = document.getElementById('copySuccess');
+        // DOM元素 - 文案生成页
+        const copywritingProductName = document.getElementById('copywritingProductName');
+        const copywritingProductBrand = document.getElementById('copywritingProductBrand');
+        const copywritingProductCategory = document.getElementById('copywritingProductCategory');
+        const copywritingProductDescription = document.getElementById('copywritingProductDescription');
+        const copywritingProductImage = document.getElementById('copywritingProductImage');
+        const copywritingImagePreview = document.getElementById('copywritingImagePreview');
+        const generateCopywritingBtn = document.getElementById('generateCopywritingBtn');
+        const fillCopywritingTestDataBtn = document.getElementById('fillCopywritingTestDataBtn');
+        const copywritingInitialState = document.getElementById('copywritingInitialState');
+        const copywritingLoadingState = document.getElementById('copywritingLoadingState');
+        const copywritingResultState = document.getElementById('copywritingResultState');
+        const copywritingErrorState = document.getElementById('copywritingErrorState');
+        const copywritingErrorMsg = document.getElementById('copywritingErrorMsg');
+        const copywritingRetryBtn = document.getElementById('copywritingRetryBtn');
+        const regenerateCopywritingBtn = document.getElementById('regenerateCopywritingBtn');
+        const clearCopywritingResultBtn = document.getElementById('clearCopywritingResultBtn');
+        const generatedCopywritingTitle = document.getElementById('generatedCopywritingTitle');
+        const generatedCopywritingContent = document.getElementById('generatedCopywritingContent');
+
+        // DOM元素 - 图片卖点分析页
+        const imageAnalysisProductImage = document.getElementById('imageAnalysisProductImage');
+        const imageAnalysisImagePreview = document.getElementById('imageAnalysisImagePreview');
+        const analyzeImageBtn = document.getElementById('analyzeImageBtn');
+        const fillImageAnalysisTestDataBtn = document.getElementById('fillImageAnalysisTestDataBtn');
+        const imageAnalysisInitialState = document.getElementById('imageAnalysisInitialState');
+        const imageAnalysisLoadingState = document.getElementById('imageAnalysisLoadingState');
+        const imageAnalysisResultState = document.getElementById('imageAnalysisResultState');
+        const imageAnalysisErrorState = document.getElementById('imageAnalysisErrorState');
+        const imageAnalysisErrorMsg = document.getElementById('imageAnalysisErrorMsg');
+        const imageAnalysisRetryBtn = document.getElementById('imageAnalysisRetryBtn');
+        const imageAnalysisSellingPoints = document.getElementById('imageAnalysisSellingPoints');
+        const imageAnalysisKeywords = document.getElementById('imageAnalysisKeywords');
+        const imageAnalysisDescription = document.getElementById('imageAnalysisDescription');
+        const reanalyzeImageBtn = document.getElementById('reanalyzeImageBtn');
+        const clearImageAnalysisResultBtn = document.getElementById('clearImageAnalysisResultBtn');
+
+        // DOM元素 - 电商海报生成页
+        const posterProductName = document.getElementById('posterProductName');
+        const posterProductBrand = document.getElementById('posterProductBrand');
+        const posterProductPrice = document.getElementById('posterProductPrice');
+        const posterPromotionCopy = document.getElementById('posterPromotionCopy');
+        const posterSellingPoints = document.getElementById('posterSellingPoints');
+        const posterTagsContainer = document.getElementById('posterTagsContainer');
+        const generatePosterBtn = document.getElementById('generatePosterBtn');
+        const fillPosterTestDataBtn = document.getElementById('fillPosterTestDataBtn');
+        const posterInitialState = document.getElementById('posterInitialState');
+        const posterLoadingState = document.getElementById('posterLoadingState');
+        const posterResultState = document.getElementById('posterResultState');
+        const posterErrorState = document.getElementById('posterErrorState');
+        const posterErrorMsg = document.getElementById('posterErrorMsg');
+        const posterRetryBtn = document.getElementById('posterRetryBtn');
+        const posterImageContainer = document.getElementById('posterImageContainer');
+        const posterImage = document.getElementById('posterImage');
+        const downloadPosterBtn = document.getElementById('downloadPosterBtn');
+        const regeneratePosterBtn = document.getElementById('regeneratePosterBtn');
+        const clearPosterResultBtn = document.getElementById('clearPosterResultBtn');
+
 
         // 初始化事件监听
         function initEventListeners() {
@@ -1041,45 +1358,81 @@
                 });
             });
 
-            // 商品名称输入监听（用于启用/禁用生成按钮）
-            if (productNameInput) {
-                productNameInput.addEventListener('input', checkFormValidity);
-            }
+            // 错误重试按钮事件
+            copywritingRetryBtn?.addEventListener('click', generateCopywriting);
+            imageAnalysisRetryBtn?.addEventListener('click', analyzeImage);
+            posterRetryBtn?.addEventListener('click', generatePoster);
 
-            // 核心卖点输入监听（支持回车/逗号分隔）
-            if (productSellingPointsInput) {
-                productSellingPointsInput.addEventListener('keydown', handleSellingPointsKeydown);
-            }
-
-            // 图片上传监听
-            if (productImageInput) {
-                productImageInput.addEventListener('change', handleImageUpload);
-            }
-
-            // 按钮事件
-            if (generateBtn) {
-                generateBtn.addEventListener('click', handleGenerate);
-            }
-            if (regenerateBtn) {
-                regenerateBtn.addEventListener('click', handleGenerate);
-            }
-            if (clearResultBtn) {
-                clearResultBtn.addEventListener('click', clearResult);
-            }
-            const fillTestDataBtn = document.getElementById('fillTestDataBtn');
-            if (fillTestDataBtn) {
-                fillTestDataBtn.addEventListener('click', fillTestData);
-            }
-
-            // 图片点击事件
-            document.querySelectorAll('.product-image').forEach(img => {
-                img.addEventListener('click', handleImageClick);
-            });
 
             // 复制文案事件
             document.querySelectorAll('.copyable').forEach(element => {
                 element.addEventListener('click', handleCopy);
             });
+
+            // 文案生成页事件
+            if (copywritingProductName) {
+                copywritingProductName.addEventListener('input', checkCopywritingFormValidity);
+            }
+            if (copywritingProductImage) {
+                copywritingProductImage.addEventListener('change', handleCopywritingImageUpload);
+            }
+            if (generateCopywritingBtn) {
+                generateCopywritingBtn.addEventListener('click', generateCopywriting);
+            }
+            if (regenerateCopywritingBtn) {
+                regenerateCopywritingBtn.addEventListener('click', generateCopywriting);
+            }
+            if (clearCopywritingResultBtn) {
+                clearCopywritingResultBtn.addEventListener('click', clearCopywritingResult);
+            }
+            if (fillCopywritingTestDataBtn) {
+                fillCopywritingTestDataBtn.addEventListener('click', fillCopywritingTestData);
+            }
+
+            // 图片卖点分析页事件
+            if (imageAnalysisProductImage) {
+                imageAnalysisProductImage.addEventListener('change', handleImageAnalysisImageUpload);
+            }
+            if (analyzeImageBtn) {
+                analyzeImageBtn.addEventListener('click', analyzeImage);
+            }
+            if (reanalyzeImageBtn) {
+                reanalyzeImageBtn.addEventListener('click', analyzeImage);
+            }
+            if (clearImageAnalysisResultBtn) {
+                clearImageAnalysisResultBtn.addEventListener('click', clearImageAnalysisResult);
+            }
+            if (fillImageAnalysisTestDataBtn) {
+                fillImageAnalysisTestDataBtn.addEventListener('click', fillImageAnalysisTestData);
+            }
+
+            // 电商海报生成页事件
+            if (posterProductName) {
+                posterProductName.addEventListener('input', checkPosterFormValidity);
+            }
+            if (posterSellingPoints) {
+                posterSellingPoints.addEventListener('keydown', handlePosterSellingPointsKeydown);
+            }
+            if (generatePosterBtn) {
+                generatePosterBtn.addEventListener('click', generatePoster);
+            }
+            if (regeneratePosterBtn) {
+                regeneratePosterBtn.addEventListener('click', generatePoster);
+            }
+            if (clearPosterResultBtn) {
+                clearPosterResultBtn.addEventListener('click', clearPosterResult);
+            }
+            if (downloadPosterBtn) {
+                downloadPosterBtn.addEventListener('click', downloadPoster);
+            }
+            if (fillPosterTestDataBtn) {
+                fillPosterTestDataBtn.addEventListener('click', fillPosterTestData);
+            }
+
+            // 图像生成按钮事件
+            if (generateDouyinImageBtn) {
+                generateDouyinImageBtn.addEventListener('click', generateDouyinImage);
+            }
 
             // 弹窗关闭事件
             imageModal.addEventListener('click', function(e) {
@@ -1092,7 +1445,7 @@
         // 页面切换函数
         function switchPage(pageIndex) {
             // 隐藏所有页面
-            const pages = document.querySelectorAll('#homePage, #productPage, #taskPage, #templatePage, #settingsPage');
+            const pages = document.querySelectorAll('#homePage, #copywritingPage, #imageAnalysisPage, #posterPage, #taskPage, #templatePage, #settingsPage');
             pages.forEach(page => page.classList.add('hidden'));
 
             // 显示选中的页面
@@ -1100,67 +1453,676 @@
                 case 0: // 工作台（首页）
                     document.getElementById('homePage').classList.remove('hidden');
                     break;
-                case 1: // 商品录入
-                    document.getElementById('productPage').classList.remove('hidden');
+                case 1: // 文案生成
+                    document.getElementById('copywritingPage').classList.remove('hidden');
                     break;
-                case 2: // 商品任务列表
+                case 2: // 图片卖点
+                    document.getElementById('imageAnalysisPage').classList.remove('hidden');
+                    break;
+                case 3: // 电商海报
+                    document.getElementById('posterPage').classList.remove('hidden');
+                    break;
+                case 4: // 商品任务列表
                     document.getElementById('taskPage').classList.remove('hidden');
                     break;
-                case 3: // 模板库
+                case 5: // 模板库
                     document.getElementById('templatePage').classList.remove('hidden');
                     break;
-                case 4: // 设置
+                case 6: // 设置
                     document.getElementById('settingsPage').classList.remove('hidden');
                     break;
             }
         }
 
-        // 检查表单验证
-        function checkFormValidity() {
-            if (productNameInput && generateBtn) {
-                const productName = productNameInput.value.trim();
-                generateBtn.disabled = productName === '';
+
+        // 文案生成页功能函数
+        function extractArkTextContent(result) {
+            if (!result) return '';
+
+            if (typeof result.output_text === 'string' && result.output_text.trim()) {
+                return result.output_text.trim();
+            }
+
+            if (Array.isArray(result.output)) {
+                const textParts = [];
+                result.output.forEach(item => {
+                    if (!item) return;
+
+                    if (typeof item.text === 'string') {
+                        textParts.push(item.text);
+                    }
+
+                    if (Array.isArray(item.content)) {
+                        item.content.forEach(part => {
+                            if (typeof part === 'string') {
+                                textParts.push(part);
+                            } else if (part && typeof part.text === 'string') {
+                                textParts.push(part.text);
+                            }
+                        });
+                    }
+                });
+
+                const mergedText = textParts.join('\n').trim();
+                if (mergedText) return mergedText;
+            }
+
+            const choiceContent = result.choices?.[0]?.message?.content;
+            if (typeof choiceContent === 'string' && choiceContent.trim()) {
+                return choiceContent.trim();
+            }
+            if (Array.isArray(choiceContent)) {
+                const mergedChoiceText = choiceContent
+                    .map(part => (typeof part === 'string' ? part : part?.text || ''))
+                    .join('\n')
+                    .trim();
+                if (mergedChoiceText) return mergedChoiceText;
+            }
+
+            return '';
+        }
+
+        function checkCopywritingFormValidity() {
+            if (generateCopywritingBtn) {
+                generateCopywritingBtn.disabled = !copywritingProductName?.value?.trim();
             }
         }
 
-        // 处理核心卖点输入
-        function handleSellingPointsKeydown(e) {
-            if (e.key === 'Enter' || e.key === ',') {
-                e.preventDefault();
-                addTag();
+        function handleCopywritingImageUpload(e) {
+            const file = e.target.files[0];
+            if (file && copywritingImagePreview) {
+                if (!file.type.match('image.*')) {
+                    alert('请选择图片文件');
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('图片大小不能超过5MB');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    copywritingImagePreview.innerHTML = `
+                        <div class="relative inline-block">
+                            <img src="${e.target.result}" alt="预览图" class="w-40 h-40 object-cover rounded-lg shadow-md">
+                            <button type="button" onclick="removeCopywritingImage()" class="absolute -top-3 -right-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm hover:bg-red-600 transition-all duration-200 hover:scale-110">
+                                ×
+                            </button>
+                        </div>
+                    `;
+                };
+                reader.readAsDataURL(file);
             }
         }
 
-        // 添加标签
-        function addTag() {
-            if (productSellingPointsInput && tagContainer) {
-                const value = productSellingPointsInput.value.trim();
-                if (value && tags.length < 5 && !tags.includes(value)) {
-                    tags.push(value);
-                    renderTags();
-                    productSellingPointsInput.value = '';
+        function removeCopywritingImage() {
+            if (copywritingProductImage) {
+                copywritingProductImage.value = '';
+            }
+            if (copywritingImagePreview) {
+                copywritingImagePreview.innerHTML = '';
+            }
+        }
+
+        async function generateCopywriting() {
+            if (!copywritingProductName?.value?.trim()) {
+                alert('请输入商品名称');
+                return;
+            }
+
+            if (generateCopywritingBtn && copywritingInitialState && copywritingLoadingState && copywritingResultState) {
+                generateCopywritingBtn.disabled = true;
+                copywritingInitialState.classList.add('hidden');
+                copywritingLoadingState.classList.remove('hidden');
+                copywritingResultState.classList.add('hidden');
+
+                try {
+                    const productName = copywritingProductName.value.trim();
+                    const productBrand = copywritingProductBrand?.value?.trim() || '';
+                    const productCategory = copywritingProductCategory?.value?.trim() || '';
+                    const productDescription = copywritingProductDescription?.value?.trim() || '';
+                    const style = document.querySelector('input[name="copywritingStyle"]:checked')?.value || 'simple';
+
+                    let prompt = `请生成${style === 'simple' ? '简洁风格' : style === 'marketing' ? '营销风格' : '详细风格'}的抖音电商文案。`;
+                    prompt += `\n\n商品名称：${productName}`;
+                    if (productBrand) prompt += `\n品牌：${productBrand}`;
+                    if (productCategory) prompt += `\n类目：${productCategory}`;
+                    if (productDescription) prompt += `\n商品描述：${productDescription}`;
+
+                    const messages = [
+                        {
+                            role: 'user',
+                            content: [
+                                {
+                                    type: 'input_text',
+                                    text: prompt
+                                }
+                            ]
+                        }
+                    ];
+
+                    // 如果有图片，添加图片到请求
+                    const fileInput = copywritingProductImage;
+                    if (fileInput?.files?.length > 0) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            messages[0].content.unshift({
+                                type: 'input_image',
+                                image_url: e.target.result
+                            });
+                            callArkTextAPI(messages).then(result => {
+                                displayCopywritingResult(result);
+                            });
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    } else {
+                        const result = await callArkTextAPI(messages);
+                        displayCopywritingResult(result);
+                    }
+                } catch (error) {
+                    console.error('文案生成失败:', error);
+                    copywritingLoadingState.classList.add('hidden');
+                    copywritingErrorState.classList.remove('hidden');
+                    copywritingErrorMsg.textContent = error.message || '文案生成失败，请重试';
                 }
             }
         }
 
-        // 渲染标签
-        function renderTags() {
-            if (tagContainer) {
-                tagContainer.innerHTML = '';
-                tags.forEach((tag, index) => {
-                    const tagElement = document.createElement('span');
-                    tagElement.className = 'tag-item';
-                    tagElement.textContent = tag;
-                    tagElement.addEventListener('click', () => removeTag(index));
-                    tagContainer.appendChild(tagElement);
-                });
+        function displayCopywritingResult(result) {
+            if (copywritingLoadingState && copywritingResultState && generatedCopywritingTitle && generatedCopywritingContent) {
+                try {
+                    const generatedText = extractArkTextContent(result);
+                    if (!generatedText) {
+                        throw new Error('接口未返回可用文案内容');
+                    }
+
+                    copywritingLoadingState.classList.add('hidden');
+                    copywritingResultState.classList.remove('hidden');
+
+                    // 解析标题和内容
+                    const lines = generatedText.split('\n').filter(line => line.trim());
+                    if (lines.length > 1) {
+                        generatedCopywritingTitle.textContent = lines[0];
+                        generatedCopywritingContent.textContent = lines.slice(1).join('\n');
+                    } else {
+                        generatedCopywritingTitle.textContent = '商品文案';
+                        generatedCopywritingContent.textContent = generatedText;
+                    }
+                } catch (error) {
+                    console.error('文案结果解析失败:', error);
+                    copywritingLoadingState.classList.add('hidden');
+                    copywritingResultState.classList.add('hidden');
+                    copywritingErrorState?.classList.remove('hidden');
+                    if (copywritingErrorMsg) {
+                        copywritingErrorMsg.textContent = '文案结果解析失败，请重试';
+                    }
+                }
+
+                if (generateCopywritingBtn) {
+                    generateCopywritingBtn.disabled = false;
+                }
             }
         }
 
-        // 删除标签
-        function removeTag(index) {
-            tags.splice(index, 1);
-            renderTags();
+        function clearCopywritingResult() {
+            if (copywritingResultState && copywritingInitialState) {
+                copywritingResultState.classList.add('hidden');
+                copywritingInitialState.classList.remove('hidden');
+            }
+        }
+
+        // 测试数据填充函数
+        function fillCopywritingTestData() {
+            if (copywritingProductName) {
+                copywritingProductName.value = '夏季透气运动鞋';
+            }
+            if (copywritingProductBrand) {
+                copywritingProductBrand.value = 'Nike';
+            }
+            if (copywritingProductCategory) {
+                copywritingProductCategory.value = '运动鞋';
+            }
+            if (copywritingProductDescription) {
+                copywritingProductDescription.value = '这款夏季透气运动鞋采用轻盈网面材质，提供出色的通风效果，让双脚在运动过程中保持干爽舒适。鞋底采用防滑橡胶材质，提供稳定的抓地力，适合各种运动场景。';
+            }
+            // 检查并启用生成按钮
+            checkCopywritingFormValidity();
+        }
+
+        function fillImageAnalysisTestData() {
+            // 创建一个简单的测试图片（彩色方块）
+            const canvas = document.createElement('canvas');
+            canvas.width = 300;
+            canvas.height = 300;
+            const ctx = canvas.getContext('2d');
+
+            // 绘制彩色渐变背景
+            const gradient = ctx.createLinearGradient(0, 0, 300, 300);
+            gradient.addColorStop(0, '#ff0000');
+            gradient.addColorStop(0.5, '#00ff00');
+            gradient.addColorStop(1, '#0000ff');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 300, 300);
+
+            // 绘制文字
+            ctx.fillStyle = 'white';
+            ctx.font = '30px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('测试图片', 150, 150);
+            ctx.fillText('(运动鞋)', 150, 200);
+
+            // 将canvas转换为base64字符串
+            const dataURL = canvas.toDataURL('image/png');
+
+            // 创建一个模拟的File对象
+            const blob = dataURItoBlob(dataURL);
+            const file = new File([blob], 'test-image.png', { type: 'image/png' });
+
+            // 触发input元素的change事件
+            const event = new Event('change', { bubbles: true });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+
+            if (imageAnalysisProductImage) {
+                imageAnalysisProductImage.files = dataTransfer.files;
+                imageAnalysisProductImage.dispatchEvent(event);
+            }
+        }
+
+        function fillPosterTestData() {
+            if (posterProductName) {
+                posterProductName.value = '夏季爆款T恤';
+            }
+            if (posterProductBrand) {
+                posterProductBrand.value = 'Adidas';
+            }
+            if (posterProductPrice) {
+                posterProductPrice.value = '¥99';
+            }
+            if (posterPromotionCopy) {
+                posterPromotionCopy.value = '夏季限时特惠，买一送一！';
+            }
+            if (posterSellingPoints) {
+                posterSellingPoints.value = '透气舒适,时尚百搭,高品质面料';
+            }
+
+            // 检查并启用生成按钮
+            checkPosterFormValidity();
+
+            // 自动添加标签
+            const tags = ['透气舒适', '时尚百搭', '高品质面料'];
+            tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'tag-item';
+                tagElement.textContent = tag;
+                tagElement.addEventListener('click', function() {
+                    tagElement.remove();
+                });
+                if (posterTagsContainer) {
+                    posterTagsContainer.appendChild(tagElement);
+                }
+            });
+        }
+
+        // 辅助函数：将dataURI转换为Blob
+        function dataURItoBlob(dataURI) {
+            const byteString = atob(dataURI.split(',')[1]);
+            const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], { type: mimeString });
+        }
+
+        // 图片卖点分析页功能函数
+        function handleImageAnalysisImageUpload(e) {
+            const file = e.target.files[0];
+            if (file && imageAnalysisImagePreview) {
+                if (!file.type.match('image.*')) {
+                    alert('请选择图片文件');
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('图片大小不能超过5MB');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageAnalysisImagePreview.innerHTML = `
+                        <div class="relative inline-block">
+                            <img src="${e.target.result}" alt="预览图" class="w-40 h-40 object-cover rounded-lg shadow-md">
+                            <button type="button" onclick="removeImageAnalysisImage()" class="absolute -top-3 -right-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm hover:bg-red-600 transition-all duration-200 hover:scale-110">
+                                ×
+                            </button>
+                        </div>
+                    `;
+                    // 启用分析按钮
+                    if (analyzeImageBtn) {
+                        analyzeImageBtn.disabled = false;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImageAnalysisImage() {
+            if (imageAnalysisProductImage) {
+                imageAnalysisProductImage.value = '';
+            }
+            if (imageAnalysisImagePreview) {
+                imageAnalysisImagePreview.innerHTML = '';
+            }
+            if (analyzeImageBtn) {
+                analyzeImageBtn.disabled = true;
+            }
+        }
+
+        async function analyzeImage() {
+            if (!imageAnalysisProductImage?.files?.length) {
+                alert('请上传图片');
+                return;
+            }
+
+            if (analyzeImageBtn && imageAnalysisInitialState && imageAnalysisLoadingState && imageAnalysisResultState) {
+                analyzeImageBtn.disabled = true;
+                imageAnalysisInitialState.classList.add('hidden');
+                imageAnalysisLoadingState.classList.remove('hidden');
+                imageAnalysisResultState.classList.add('hidden');
+
+                try {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageDataURL = e.target.result;
+                        const messages = [
+                            {
+                                role: 'user',
+                                content: [
+                                    {
+                                        type: 'input_image',
+                                        image_url: imageDataURL
+                                    },
+                                    {
+                                        type: 'input_text',
+                                        text: '请分析这张商品图片，提取：\n1. 核心卖点（3-5个）\n2. 关键词（5-8个）\n3. 图片描述（50-100字）\n\n请使用JSON格式返回，字段名：selling_points, keywords, description'
+                                    }
+                                ]
+                            }
+                        ];
+
+                        callArkTextAPI(messages).then(result => {
+                            displayImageAnalysisResult(result);
+                        });
+                    };
+                    reader.readAsDataURL(imageAnalysisProductImage.files[0]);
+                } catch (error) {
+                    console.error('图片分析失败:', error);
+                    imageAnalysisLoadingState.classList.add('hidden');
+                    imageAnalysisErrorState.classList.remove('hidden');
+                    imageAnalysisErrorMsg.textContent = error.message || '图片分析失败，请重试';
+                }
+            }
+        }
+
+        function displayImageAnalysisResult(result) {
+            if (imageAnalysisLoadingState && imageAnalysisResultState && imageAnalysisSellingPoints && imageAnalysisKeywords && imageAnalysisDescription) {
+                imageAnalysisLoadingState.classList.add('hidden');
+                imageAnalysisResultState.classList.remove('hidden');
+
+                const analysisText = extractArkTextContent(result);
+                if (analysisText) {
+                    try {
+                        const analysis = JSON.parse(analysisText);
+
+                        // 显示卖点
+                        imageAnalysisSellingPoints.innerHTML = '';
+                        analysis.selling_points?.forEach(point => {
+                            const tag = document.createElement('span');
+                            tag.className = 'tag-item';
+                            tag.textContent = point;
+                            imageAnalysisSellingPoints.appendChild(tag);
+                        });
+
+                        // 显示关键词
+                        imageAnalysisKeywords.innerHTML = '';
+                        analysis.keywords?.forEach(keyword => {
+                            const tag = document.createElement('span');
+                            tag.className = 'tag-item';
+                            tag.textContent = keyword;
+                            imageAnalysisKeywords.appendChild(tag);
+                        });
+
+                        // 显示描述
+                        imageAnalysisDescription.textContent = analysis.description || '暂无描述';
+                    } catch (parseError) {
+                        console.error('解析失败:', parseError);
+                        imageAnalysisDescription.textContent = '分析失败，请重试';
+                    }
+                }
+
+                if (analyzeImageBtn) {
+                    analyzeImageBtn.disabled = false;
+                }
+            }
+        }
+
+        function clearImageAnalysisResult() {
+            if (imageAnalysisResultState && imageAnalysisInitialState) {
+                imageAnalysisResultState.classList.add('hidden');
+                imageAnalysisInitialState.classList.remove('hidden');
+            }
+        }
+
+        // 电商海报生成页功能函数
+        function checkPosterFormValidity() {
+            if (generatePosterBtn) {
+                generatePosterBtn.disabled = !posterProductName?.value?.trim();
+            }
+        }
+
+        function handlePosterSellingPointsKeydown(e) {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                addPosterTag();
+            }
+        }
+
+        function addPosterTag() {
+            const value = posterSellingPoints?.value?.trim();
+            if (value) {
+                const tag = document.createElement('span');
+                tag.className = 'tag-item';
+                tag.textContent = value;
+                tag.addEventListener('click', function() {
+                    tag.remove();
+                });
+                posterTagsContainer?.appendChild(tag);
+                if (posterSellingPoints) {
+                    posterSellingPoints.value = '';
+                }
+            }
+        }
+
+        async function generatePoster() {
+            if (!posterProductName?.value?.trim()) {
+                alert('请输入商品名称');
+                return;
+            }
+
+            if (generatePosterBtn && posterInitialState && posterLoadingState && posterResultState) {
+                generatePosterBtn.disabled = true;
+                posterInitialState.classList.add('hidden');
+                posterLoadingState.classList.remove('hidden');
+                posterResultState.classList.add('hidden');
+
+                try {
+                    const productName = posterProductName.value.trim();
+                    const productBrand = posterProductBrand?.value?.trim() || '';
+                    const productPrice = posterProductPrice?.value?.trim() || '';
+                    const promotionCopy = posterPromotionCopy?.value?.trim() || '';
+                    const style = document.querySelector('input[name="posterStyle"]:checked')?.value || 'modern';
+
+                    // 收集标签
+                    const tags = Array.from(posterTagsContainer?.children || []).map(tag => tag.textContent);
+
+                    let prompt = `请生成${style === 'modern' ? '现代风格' : style === 'minimal' ? '简约风格' : '奢华风格'}的电商海报。`;
+                    prompt += `\n\n商品名称：${productName}`;
+                    if (productBrand) prompt += `\n品牌：${productBrand}`;
+                    if (productPrice) prompt += `\n价格：${productPrice}`;
+                    if (promotionCopy) prompt += `\n促销文案：${promotionCopy}`;
+                    if (tags.length > 0) prompt += `\n卖点：${tags.join(', ')}`;
+                    prompt += '\n\n要求：包含商品信息、价格、促销信息，设计美观，符合电商海报规范';
+
+                    const result = await callArkImageAPI(prompt);
+                    displayPosterResult(result);
+                } catch (error) {
+                    console.error('海报生成失败:', error);
+                    posterLoadingState.classList.add('hidden');
+                    posterErrorState.classList.remove('hidden');
+                    posterErrorMsg.textContent = error.message || '海报生成失败，请重试';
+                }
+            }
+        }
+
+        function displayPosterResult(result) {
+            if (posterLoadingState && posterResultState && posterImage) {
+                posterLoadingState.classList.add('hidden');
+                posterResultState.classList.remove('hidden');
+
+                if (result && result.data && result.data.length > 0) {
+                    posterImage.src = result.data[0].url;
+                }
+
+                if (generatePosterBtn) {
+                    generatePosterBtn.disabled = false;
+                }
+            }
+        }
+
+        function downloadPoster() {
+            if (posterImage.src) {
+                fetch(posterImage.src)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `电商海报_${posterProductName?.value?.trim() || '未命名'}.png`;
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    })
+                    .catch(error => {
+                        console.error('下载失败:', error);
+                        alert('下载失败，请重试');
+                    });
+            }
+        }
+
+        function clearPosterResult() {
+            if (posterResultState && posterInitialState) {
+                posterResultState.classList.add('hidden');
+                posterInitialState.classList.remove('hidden');
+            }
+        }
+
+        // 调用火山引擎方舟文本生成 API
+        async function callArkTextAPI(messages) {
+            try {
+                const response = await fetch(API_CONFIG.text.url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        messages
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => null);
+                    throw new Error(`API 请求失败: ${response.status} ${response.statusText}${errorData ? ' - ' + JSON.stringify(errorData) : ''}`);
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('文本 API 调用错误:', error);
+                throw error;
+            }
+        }
+
+        // 调用火山引擎方舟图像生成 API
+        async function callArkImageAPI(prompt, size = '2K', watermark = true) {
+            try {
+                const response = await fetch(API_CONFIG.image.url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        size: size,
+                        watermark: watermark
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => null);
+                    throw new Error(`API 请求失败: ${response.status} ${response.statusText}${errorData ? ' - ' + JSON.stringify(errorData) : ''}`);
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('图像 API 调用错误:', error);
+                throw error;
+            }
+        }
+
+        // 分析图片并生成卖点和关键词（旧流程）
+        async function analyzeUploadedImageTags(imageDataURL) {
+            try {
+                // 显示加载状态
+                const originalPlaceholder = productSellingPointsInput.placeholder;
+                productSellingPointsInput.placeholder = '正在分析图片，请稍候...';
+                productSellingPointsInput.disabled = true;
+
+                const messages = [
+                    {
+                        role: 'user',
+                        content: [
+                            {
+                                type: 'input_image',
+                                image_url: imageDataURL
+                            },
+                            {
+                                type: 'input_text',
+                                text: '请分析这张商品图片，提取商品的核心卖点、特色功能、材质、颜色、适用场景等信息。请以逗号分隔的关键词形式返回，最多8个关键词。'
+                            }
+                        ]
+                    }
+                ];
+
+                const result = await callArkTextAPI(messages);
+
+                if (result && result.output) {
+                    const analysis = result.output[0]?.content?.[0]?.text || '';
+                    // 解析关键词
+                    const extractedTags = analysis.split(/[，,]/).map(tag => tag.trim()).filter(tag => tag.length > 0);
+
+                    if (extractedTags.length > 0) {
+                        tags = [...new Set([...tags, ...extractedTags])].slice(0, 8); // 最多8个关键词
+                        renderTags();
+                    }
+                }
+            } catch (error) {
+                console.error('图片分析错误:', error);
+            } finally {
+                productSellingPointsInput.placeholder = '输入核心卖点，用回车或逗号分隔';
+                productSellingPointsInput.disabled = false;
+            }
         }
 
         // 处理图片上传
@@ -1189,6 +2151,8 @@
                             </button>
                         </div>
                     `;
+                    // 图片上传后自动分析
+                    analyzeUploadedImageTags(uploadedImage);
                 };
                 reader.readAsDataURL(file);
             }
@@ -1205,175 +2169,28 @@
             }
         }
 
-        // 处理生成
-        function handleGenerate() {
-            if (initialState && loadingState && resultState && generateBtn && regenerateBtn) {
-                // 显示加载状态
-                initialState.classList.add('hidden');
-                loadingState.classList.remove('hidden');
-                resultState.classList.add('hidden');
 
-                // 禁用按钮
-                generateBtn.disabled = true;
-                regenerateBtn.disabled = true;
-
-                // 模拟生成过程
-                setTimeout(() => {
-                    generateMockResult();
-                    loadingState.classList.add('hidden');
-                    resultState.classList.remove('hidden');
-                    generateBtn.disabled = false;
-                    regenerateBtn.disabled = false;
-                }, 2000);
-            }
+        // 下载图像
+        function downloadImage(url, filename) {
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${filename}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error('下载失败:', error);
+                    alert('下载失败，请重试');
+                });
         }
 
-        // 生成模拟结果
-        function generateMockResult() {
-            if (productNameInput && productBrandInput && productCategoryInput &&
-                productMaterialInput && productColorInput && productSizeInput && productAudienceInput) {
-                const productName = productNameInput.value.trim();
-                const productBrand = productBrandInput.value.trim();
-                const productCategory = productCategoryInput.value.trim();
-                const productMaterial = productMaterialInput.value.trim();
-                const productColor = productColorInput.value.trim();
-                const productSize = productSizeInput.value.trim();
-                const productAudience = productAudienceInput.value.trim();
-                const productPrice = '价格面议';
-                const productScene = '多种场景适用';
 
-                // 渲染主图
-                const imageIcons = ['👕', '🎨', '✨'];
-                const imageTitles = [
-                    productName,
-                    productName + ' - 限时优惠',
-                    productName + ' - 新品上市'
-                ];
-                const imageSelling = tags.length > 0 ? tags.join(' · ') : '品质保证 · 放心选购';
-
-                for (let i = 0; i < 3; i++) {
-                    const imageTitle = document.getElementById(`mainImage${i + 1}Title`);
-                    const imageSellingEl = document.getElementById(`mainImage${i + 1}Selling`);
-                    if (imageTitle && imageSellingEl) {
-                        imageTitle.textContent = imageTitles[i];
-                        imageSellingEl.textContent = imageSelling;
-                    }
-                }
-
-                // 渲染文案
-
-                // 简洁版
-                const simpleTitle = document.getElementById('simpleTitle');
-                const simpleContent = document.getElementById('simpleContent');
-                if (simpleTitle && simpleContent) {
-                    simpleTitle.textContent = productName;
-                    simpleContent.textContent =
-                        `${productName}，${productBrand ? productBrand + '品牌' : '品质好物'}，${productScene}，${productPrice}，欢迎选购！`;
-                }
-
-                // 营销版
-                const marketingTitle = document.getElementById('marketingTitle');
-                const marketingContent = document.getElementById('marketingContent');
-                if (marketingTitle && marketingContent) {
-                    marketingTitle.textContent = `【热销爆款】${productName}`;
-                    marketingContent.textContent =
-                        `🔥 限时抢购！${productName} ${productPrice}！${tags.length > 0 ? tags.join('，') + '，' : ''}${productScene}，库存有限，先到先得！`;
-                }
-
-                // 详细版
-                const detailedTitle = document.getElementById('detailedTitle');
-                const detailedContent = document.getElementById('detailedContent');
-                if (detailedTitle && detailedContent) {
-                    detailedTitle.textContent = `${productName} - 优质之选`;
-                    detailedContent.textContent =
-                        `✅ 产品名称：${productName}\n` +
-                        `✅ 品牌：${productBrand || '知名品牌'}\n` +
-                        `✅ 类目：${productCategory || '精选类目'}\n` +
-                        `✅ 产品特点：${tags.length > 0 ? tags.join('、') : '品质优良，设计精美'}\n` +
-                        `✅ 材质：${productMaterial || '精选材质'}\n` +
-                        `✅ 颜色：${productColor || '多种颜色'}\n` +
-                        `✅ 尺寸：${productSize || '多种尺寸'}\n` +
-                        `✅ 适用人群：${productAudience || '广泛适用'}\n` +
-                        `✅ 适用场景：${productScene}\n` +
-                        `✅ 价格信息：${productPrice}\n` +
-                        `✅ 品质保证：我们承诺提供优质产品和完善的售后服务，让您购物无忧！`;
-                }
-            }
-        }
-
-        // 清空结果
-        function clearResult() {
-            if (initialState && resultState) {
-                initialState.classList.remove('hidden');
-                resultState.classList.add('hidden');
-            }
-        }
-
-        // 快速填充测试数据
-        function fillTestData() {
-            // 填充基础信息
-            if (productNameInput) {
-                productNameInput.value = '夏季透气运动跑鞋 男女同款';
-            }
-            if (productBrandInput) {
-                productBrandInput.value = 'Nike';
-            }
-            if (productCategoryInput) {
-                productCategoryInput.value = '运动鞋';
-            }
-            if (productMaterialInput) {
-                productMaterialInput.value = '网面/透气';
-            }
-            if (productColorInput) {
-                productColorInput.value = '黑白';
-            }
-            if (productSizeInput) {
-                productSizeInput.value = '36-44';
-            }
-            if (productAudienceInput) {
-                productAudienceInput.value = '青年';
-            }
-
-            // 填充核心卖点
-            tags = ['透气轻便', '防滑耐磨', '时尚百搭', '缓震舒适'];
-            renderTags();
-
-            // 启用生成按钮
-            checkFormValidity();
-        }
-
-        // 处理图片点击
-        function handleImageClick(e) {
-            const index = e.currentTarget.dataset.index;
-            const imageIcons = ['👕', '🎨', '✨'];
-            const imageTitles = [
-                productNameInput.value.trim(),
-                productNameInput.value.trim() + ' - 限时优惠',
-                productNameInput.value.trim() + ' - 新品上市'
-            ];
-            const imageSelling = tags.length > 0 ? tags.join(' · ') : '品质保证 · 放心选购';
-
-            // 填充弹窗内容
-            document.getElementById('modalImageIcon').textContent = imageIcons[index];
-            document.getElementById('modalImageTitle').textContent = imageTitles[index];
-            document.getElementById('modalImageSelling').textContent = imageSelling;
-
-            // 设置弹窗图片背景颜色
-            const gradientColors = [
-                'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)',
-                'linear-gradient(135deg, #fb923c 0%, #f97316 100%)',
-                'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)'
-            ];
-            document.getElementById('modalImageContainer').style.background = gradientColors[index];
-
-            // 显示弹窗
-            imageModal.style.display = 'block';
-        }
-
-        // 关闭弹窗
-        function closeModal() {
-            imageModal.style.display = 'none';
-        }
 
         // 处理文案复制
         function handleCopy(e) {

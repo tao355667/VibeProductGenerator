@@ -1,0 +1,27 @@
+{
+  "name": "vibeproductgenerator",
+  "version": "1.0.0",
+  "description": "一款智能的电商商品内容生成工具，帮助用户快速创建高质量的商品主图和营销文案。",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tao355667/VibeProductGenerator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tao355667/VibeProductGenerator/issues"
+  },
+  "homepage": "https://github.com/tao355667/VibeProductGenerator#readme",
+  "dependencies": {
+    "axios": "^1.13.5",
+    "node-fetch": "^3.3.2"
+  }
+}
