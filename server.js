@@ -37,7 +37,7 @@ function loadEnv(filePath) {
 
 loadEnv(ENV_PATH);
 
-const PORT = Number(process.env.PORT || 3000);
+const PORT = Number(process.env.PORT || 3001);
 const ARK_API_KEY = process.env.ARK_API_KEY || '';
 const ARK_API_URL = process.env.ARK_API_URL || 'https://ark.cn-beijing.volces.com/api/v3/responses';
 const ARK_MODEL = process.env.ARK_MODEL || 'doubao-seed-2-0-pro-260215';

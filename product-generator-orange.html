@@ -432,11 +432,11 @@
 <body class="bg-gray-50 min-h-screen">
     <!-- 侧边栏 -->
     <div class="sidebar">
-        <div class="sidebar-item">
+        <div class="sidebar-item active">
             <span class="text-2xl">📋</span>
             <span>工作台</span>
         </div>
-        <div class="sidebar-item active">
+        <div class="sidebar-item">
             <span class="text-2xl">📝</span>
             <span>文案生成</span>
         </div>
@@ -1283,6 +1283,68 @@
         // 全局变量
         let tags = [];
         let uploadedImage = null;
+        const STORAGE_KEY = 'vibeProductGeneratorData';
+
+        // 保存数据到 localStorage
+        function saveDataToStorage() {
+            const data = {
+                copywriting: {
+                    productName: copywritingProductName?.value || '',
+                    productBrand: copywritingProductBrand?.value || '',
+                    productCategory: copywritingProductCategory?.value || '',
+                    productDescription: copywritingProductDescription?.value || '',
+                    productImage: uploadedImage ? 'image_uploaded' : null // 简单标记有图片上传
+                },
+                imageAnalysis: {
+                    productImage: uploadedImage ? 'image_uploaded' : null // 简单标记有图片上传
+                },
+                poster: {
+                    productName: posterProductName?.value || '',
+                    productBrand: posterProductBrand?.value || '',
+                    productPrice: posterProductPrice?.value || '',
+                    promotionCopy: posterPromotionCopy?.value || '',
+                    sellingPoints: posterSellingPoints?.value || '',
+                    tags: tags
+                }
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            console.log('数据已保存到 localStorage');
+        }
+
+        // 从 localStorage 加载数据
+        function loadDataFromStorage() {
+            const savedData = localStorage.getItem(STORAGE_KEY);
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+
+                    // 加载文案生成页数据
+                    if (data.copywriting) {
+                        if (copywritingProductName) copywritingProductName.value = data.copywriting.productName;
+                        if (copywritingProductBrand) copywritingProductBrand.value = data.copywriting.productBrand;
+                        if (copywritingProductCategory) copywritingProductCategory.value = data.copywriting.productCategory;
+                        if (copywritingProductDescription) copywritingProductDescription.value = data.copywriting.productDescription;
+                    }
+
+                    // 加载海报生成页数据
+                    if (data.poster) {
+                        if (posterProductName) posterProductName.value = data.poster.productName;
+                        if (posterProductBrand) posterProductBrand.value = data.poster.productBrand;
+                        if (posterProductPrice) posterProductPrice.value = data.poster.productPrice;
+                        if (posterPromotionCopy) posterPromotionCopy.value = data.poster.promotionCopy;
+                        if (posterSellingPoints) posterSellingPoints.value = data.poster.sellingPoints;
+                        if (data.poster.tags && Array.isArray(data.poster.tags)) {
+                            tags = data.poster.tags;
+                            renderTags(); // 更新标签显示
+                        }
+                    }
+
+                    console.log('数据已从 localStorage 加载');
+                } catch (error) {
+                    console.error('从 localStorage 加载数据失败:', error);
+                }
+            }
+        }
 
         // DOM元素 - 文案生成页
         const copywritingProductName = document.getElementById('copywritingProductName');
@@ -1343,6 +1405,11 @@
         const clearPosterResultBtn = document.getElementById('clearPosterResultBtn');
 
 
+        // 页面加载时初始化数据
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDataFromStorage();
+        });
+
         // 初始化事件监听
         function initEventListeners() {
             // 侧边栏导航事件
@@ -1371,7 +1438,19 @@
 
             // 文案生成页事件
             if (copywritingProductName) {
-                copywritingProductName.addEventListener('input', checkCopywritingFormValidity);
+                copywritingProductName.addEventListener('input', (e) => {
+                    checkCopywritingFormValidity(e);
+                    saveDataToStorage();
+                });
+            }
+            if (copywritingProductBrand) {
+                copywritingProductBrand.addEventListener('input', saveDataToStorage);
+            }
+            if (copywritingProductCategory) {
+                copywritingProductCategory.addEventListener('input', saveDataToStorage);
+            }
+            if (copywritingProductDescription) {
+                copywritingProductDescription.addEventListener('input', saveDataToStorage);
             }
             if (copywritingProductImage) {
                 copywritingProductImage.addEventListener('change', handleCopywritingImageUpload);
@@ -1386,7 +1465,10 @@
                 clearCopywritingResultBtn.addEventListener('click', clearCopywritingResult);
             }
             if (fillCopywritingTestDataBtn) {
-                fillCopywritingTestDataBtn.addEventListener('click', fillCopywritingTestData);
+                fillCopywritingTestDataBtn.addEventListener('click', () => {
+                    fillCopywritingTestData();
+                    saveDataToStorage();
+                });
             }
 
             // 图片卖点分析页事件
@@ -1403,15 +1485,31 @@
                 clearImageAnalysisResultBtn.addEventListener('click', clearImageAnalysisResult);
             }
             if (fillImageAnalysisTestDataBtn) {
-                fillImageAnalysisTestDataBtn.addEventListener('click', fillImageAnalysisTestData);
+                fillImageAnalysisTestDataBtn.addEventListener('click', () => {
+                    fillImageAnalysisTestData();
+                    saveDataToStorage();
+                });
             }
 
             // 电商海报生成页事件
             if (posterProductName) {
-                posterProductName.addEventListener('input', checkPosterFormValidity);
+                posterProductName.addEventListener('input', (e) => {
+                    checkPosterFormValidity(e);
+                    saveDataToStorage();
+                });
+            }
+            if (posterProductBrand) {
+                posterProductBrand.addEventListener('input', saveDataToStorage);
+            }
+            if (posterProductPrice) {
+                posterProductPrice.addEventListener('input', saveDataToStorage);
+            }
+            if (posterPromotionCopy) {
+                posterPromotionCopy.addEventListener('input', saveDataToStorage);
             }
             if (posterSellingPoints) {
                 posterSellingPoints.addEventListener('keydown', handlePosterSellingPointsKeydown);
+                posterSellingPoints.addEventListener('input', saveDataToStorage);
             }
             if (generatePosterBtn) {
                 generatePosterBtn.addEventListener('click', generatePoster);
@@ -1426,7 +1524,10 @@
                 downloadPosterBtn.addEventListener('click', downloadPoster);
             }
             if (fillPosterTestDataBtn) {
-                fillPosterTestDataBtn.addEventListener('click', fillPosterTestData);
+                fillPosterTestDataBtn.addEventListener('click', () => {
+                    fillPosterTestData();
+                    saveDataToStorage();
+                });
             }
 
             // 图像生成按钮事件
@@ -1937,12 +2038,47 @@
                 tag.textContent = value;
                 tag.addEventListener('click', function() {
                     tag.remove();
+                    // 更新标签数组并保存
+                    const index = tags.indexOf(value);
+                    if (index > -1) {
+                        tags.splice(index, 1);
+                    }
+                    saveDataToStorage();
                 });
                 posterTagsContainer?.appendChild(tag);
+                // 添加到全局标签数组
+                tags.push(value);
                 if (posterSellingPoints) {
                     posterSellingPoints.value = '';
                 }
+                // 保存数据
+                saveDataToStorage();
             }
+        }
+
+        // 渲染标签到界面
+        function renderTags() {
+            if (!posterTagsContainer) return;
+
+            // 先清空当前标签
+            posterTagsContainer.innerHTML = '';
+
+            // 渲染标签
+            tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'tag-item';
+                tagElement.textContent = tag;
+                tagElement.addEventListener('click', function() {
+                    tagElement.remove();
+                    // 更新标签数组并保存
+                    const index = tags.indexOf(tag);
+                    if (index > -1) {
+                        tags.splice(index, 1);
+                    }
+                    saveDataToStorage();
+                });
+                posterTagsContainer.appendChild(tagElement);
+            });
         }
 
         async function generatePoster() {
