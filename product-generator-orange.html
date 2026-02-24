@@ -467,60 +467,70 @@
         <!-- 首页（概览） -->
         <div id="homePage" class="w-full px-4">
             <div class="custom-card mt-6">
+                <!-- 系统名称和简介 -->
+                <div class="mb-8 text-center pb-6 border-b border-gray-200">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">电商内容生成器</h1>
+                    <p class="text-base text-gray-600">AI 驱动的电商内容生产工具，一键生成文案、图片分析与海报素材</p>
+                </div>
+
                 <div class="mb-6">
-                    <h2 class="text-xl font-bold text-gray-800">项目概览</h2>
-                    <p class="text-sm text-gray-500">查看当前项目与整体进度</p>
+                    <h2 class="text-xl font-bold text-gray-800">工作台</h2>
+                    <p class="text-sm text-gray-500">查看任务完成情况与快速开始指引</p>
                 </div>
 
-                <!-- 统计卡片 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                    <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-xl">
-                        <div class="text-3xl font-bold mb-1">0</div>
-                        <div class="text-sm">已生成文案</div>
-                    </div>
-                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-xl">
-                        <div class="text-3xl font-bold mb-1">0</div>
-                        <div class="text-sm">已生成主图</div>
-                    </div>
-                    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-xl">
-                        <div class="text-3xl font-bold mb-1">0</div>
-                        <div class="text-sm">完成任务</div>
-                    </div>
-                    <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-xl">
-                        <div class="text-3xl font-bold mb-1">0</div>
-                        <div class="text-sm">待处理任务</div>
-                    </div>
-                </div>
-
-                <!-- 最近任务 -->
+                <!-- 任务完成统计 -->
                 <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">最近任务</h3>
-                    <div class="space-y-4">
-                        <div class="p-4 border border-gray-200 rounded-xl bg-gray-50">
-                            <div class="flex justify-between items-center mb-2">
-                                <div class="text-sm font-semibold text-gray-800">未命名任务</div>
-                                <div class="text-xs text-gray-500">2分钟前</div>
-                            </div>
-                            <div class="text-sm text-gray-600">商品数量: 0 | 状态: 未完成</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">任务完成统计</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-xl">
+                            <div class="text-3xl font-bold mb-1" id="homeCopywritingCount">0</div>
+                            <div class="text-sm">文案生成已完成</div>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-xl">
+                            <div class="text-3xl font-bold mb-1" id="homeImageAnalysisCount">0</div>
+                            <div class="text-sm">图片卖点已完成</div>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-xl">
+                            <div class="text-3xl font-bold mb-1" id="homePosterCount">0</div>
+                            <div class="text-sm">电商海报已完成</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 快速操作 -->
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">快速操作</h3>
+                <!-- 应用场景 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">应用场景</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <button class="custom-button btn-primary">
-                            <span>📸</span>
-                            新增商品任务
+                        <div class="p-4 border border-gray-200 rounded-xl bg-gray-50">
+                            <div class="text-sm font-semibold text-gray-800 mb-2">商品上新</div>
+                            <div class="text-sm text-gray-600">快速生成商品文案、分析主图卖点并输出海报素材。</div>
+                        </div>
+                        <div class="p-4 border border-gray-200 rounded-xl bg-gray-50">
+                            <div class="text-sm font-semibold text-gray-800 mb-2">活动营销</div>
+                            <div class="text-sm text-gray-600">批量产出促销文案与视觉内容，提升活动上线效率。</div>
+                        </div>
+                        <div class="p-4 border border-gray-200 rounded-xl bg-gray-50">
+                            <div class="text-sm font-semibold text-gray-800 mb-2">运营复用</div>
+                            <div class="text-sm text-gray-600">通过模板库沉淀高质量模板，团队协作时可一键复用。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 快速开始 -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">快速开始</h3>
+                    <div class="space-y-3">
+                        <button type="button" class="w-full text-left p-4 border border-gray-200 rounded-xl bg-gray-50 hover:shadow-md transition-shadow" data-target-page="5">
+                            <div class="text-sm font-semibold text-gray-800 mb-1">1. 先在「模板库」维护模板</div>
+                            <div class="text-sm text-gray-600">仅需维护模板名和模板内容，后续在各任务页面可直接选择填充。</div>
                         </button>
-                        <button class="custom-button btn-secondary">
-                            <span>📋</span>
-                            查看任务列表
+                        <button type="button" class="w-full text-left p-4 border border-gray-200 rounded-xl bg-gray-50 hover:shadow-md transition-shadow" data-target-page="1">
+                            <div class="text-sm font-semibold text-gray-800 mb-1">2. 在任务页面点击「填充模板」</div>
+                            <div class="text-sm text-gray-600">从弹层中选择模板，自动填入对应字段，减少手工录入时间。</div>
                         </button>
-                        <button class="custom-button btn-secondary">
-                            <span>🎨</span>
-                            管理模板
+                        <button type="button" class="w-full text-left p-4 border border-gray-200 rounded-xl bg-gray-50 hover:shadow-md transition-shadow" data-target-page="4">
+                            <div class="text-sm font-semibold text-gray-800 mb-1">3. 点击生成并在「任务列表」查看结果</div>
+                            <div class="text-sm text-gray-600">文案、图片分析、海报都会自动保存为任务，便于复查与管理。</div>
                         </button>
                     </div>
                 </div>
@@ -535,16 +545,15 @@
                     <p class="text-sm text-gray-500">管理和查看所有商品任务</p>
                 </div>
 
-                <!-- 搜索和筛选 -->
+                <!-- 搜索 -->
                 <div class="flex flex-wrap gap-4 mb-6">
-                    <input type="text" placeholder="搜索商品名称..." class="custom-input flex-1 min-w-[200px]">
-                    <select class="custom-input min-w-[150px]">
-                        <option value="">所有状态</option>
-                        <option value="pending">待处理</option>
-                        <option value="processing">处理中</option>
-                        <option value="completed">已完成</option>
-                    </select>
-                    <button class="custom-button btn-secondary">
+                    <input
+                        type="text"
+                        id="taskSearchInput"
+                        placeholder="搜索任务类型/商品名称/品牌..."
+                        class="custom-input flex-1 min-w-[200px]"
+                    >
+                    <button id="taskSearchBtn" class="custom-button btn-secondary">
                         <span>🔍</span>
                         搜索
                     </button>
@@ -582,60 +591,18 @@
             <div class="custom-card mt-6">
                 <div class="mb-6">
                     <h2 class="text-xl font-bold text-gray-800">模板库</h2>
-                    <p class="text-sm text-gray-500">查看与管理收藏的图文模板</p>
+                    <p class="text-sm text-gray-500">管理填充模板，保存后将同步到各任务页面</p>
                 </div>
 
-                <!-- 模板分类 -->
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <button class="custom-button btn-primary text-sm">
-                        全部
-                    </button>
-                    <button class="custom-button btn-secondary text-sm">
-                        主图模板
-                    </button>
-                    <button class="custom-button btn-secondary text-sm">
-                        文案模板
-                    </button>
-                    <button class="custom-button btn-secondary text-sm">
-                        我的收藏
-                    </button>
-                </div>
+                <div class="mb-4 text-xs text-gray-500">每种任务固定10个模板，页面仅显示模板名称，点击名称后弹出编辑卡片。</div>
 
-                <!-- 模板列表 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer">
-                        <div class="h-40 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg mb-4 flex items-center justify-center text-white text-2xl">
-                            📸
-                        </div>
-                        <div class="text-sm font-semibold text-gray-800 mb-2">通用主图模板</div>
-                        <div class="text-xs text-gray-500 mb-3">适用于大部分商品类型</div>
-                        <button class="custom-button btn-primary w-full text-sm">
-                            <span>⭐</span>
-                            收藏
-                        </button>
-                    </div>
-                    <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer">
-                        <div class="h-40 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg mb-4 flex items-center justify-center text-white text-2xl">
-                            📄
-                        </div>
-                        <div class="text-sm font-semibold text-gray-800 mb-2">营销文案模板</div>
-                        <div class="text-xs text-gray-500 mb-3">适用于促销活动</div>
-                        <button class="custom-button btn-primary w-full text-sm">
-                            <span>⭐</span>
-                            收藏
-                        </button>
-                    </div>
-                    <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer">
-                        <div class="h-40 bg-gradient-to-r from-green-500 to-green-600 rounded-lg mb-4 flex items-center justify-center text-white text-2xl">
-                            🎨
-                        </div>
-                        <div class="text-sm font-semibold text-gray-800 mb-2">简约风格模板</div>
-                        <div class="text-xs text-gray-500 mb-3">适用于高端产品</div>
-                        <button class="custom-button btn-primary w-full text-sm">
-                            <span>⭐</span>
-                            收藏
-                        </button>
-                    </div>
+                <div id="templateManagerContainer" class="space-y-8"></div>
+
+                <div class="pt-2">
+                    <button type="button" id="resetTemplateLibraryBtn" class="custom-button btn-secondary text-sm">
+                        <span>♻️</span>
+                        重置为默认模板
+                    </button>
                 </div>
             </div>
         </div>
@@ -833,13 +800,14 @@
                                 </button>
                                 <button
                                     type="button"
-                                    id="fillCopywritingTestDataBtn"
+                                    id="fillCopywritingTemplateBtn"
                                     class="custom-button btn-secondary w-full"
                                 >
                                     <span>📝</span>
-                                    快速填充测试数据
+                                    填充模板
                                 </button>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -956,13 +924,14 @@
                                 </button>
                                 <button
                                     type="button"
-                                    id="fillImageAnalysisTestDataBtn"
+                                    id="fillImageAnalysisTemplateBtn"
                                     class="custom-button btn-secondary w-full"
                                 >
                                     <span>📝</span>
-                                    快速填充测试数据
+                                    填充模板
                                 </button>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -1162,13 +1131,14 @@
                                 </button>
                                 <button
                                     type="button"
-                                    id="fillPosterTestDataBtn"
+                                    id="fillPosterTemplateBtn"
                                     class="custom-button btn-secondary w-full"
                                 >
                                     <span>📝</span>
-                                    快速填充测试数据
+                                    填充模板
                                 </button>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -1262,6 +1232,50 @@
         </div>
     </div>
 
+    <!-- 任务详情弹窗 -->
+    <div id="taskDetailModal" class="modal">
+        <div class="modal-content max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800" id="taskDetailTitle">任务详情</h2>
+                <button onclick="closeTaskDetailModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div id="taskDetailContent"></div>
+        </div>
+    </div>
+
+    <!-- 模板选择弹层 -->
+    <div id="templateSelectModal" class="modal">
+        <div class="modal-content w-full max-w-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="templateSelectTitle" class="text-xl font-bold text-gray-800">选择模板</h3>
+                <button type="button" id="closeTemplateSelectBtn" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <p class="text-sm text-gray-500 mb-4">请选择1个模板进行填充</p>
+            <div id="templateSelectList" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+        </div>
+    </div>
+
+    <!-- 模板编辑弹层 -->
+    <div id="templateEditModal" class="modal">
+        <div class="modal-content w-full max-w-3xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="templateEditTitle" class="text-xl font-bold text-gray-800">编辑模板</h3>
+                <button type="button" id="closeTemplateEditBtn" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div id="templateEditFormContainer" class="space-y-4"></div>
+            <div class="pt-4 flex gap-3">
+                <button type="button" id="saveTemplateEditBtn" class="custom-button btn-primary">
+                    <span>💾</span>
+                    保存模板
+                </button>
+                <button type="button" id="cancelTemplateEditBtn" class="custom-button btn-secondary">
+                    <span>❌</span>
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- 复制成功提示 -->
     <div id="copySuccess" class="copy-success">
         ✅ 文案已复制到剪贴板
@@ -1284,6 +1298,548 @@
         let tags = [];
         let uploadedImage = null;
         const STORAGE_KEY = 'vibeProductGeneratorData';
+        const TASKS_STORAGE_KEY = 'vibeProductGeneratorTasks';
+        const TEMPLATE_LIBRARY_STORAGE_KEY = 'vibeProductGeneratorTemplateLibrary';
+        let templateLibrary = null;
+
+        function getDefaultTemplateLibrary() {
+            return {
+                copywriting: [
+                    { name: '运动鞋基础模板', productName: '夏季透气运动鞋', productBrand: 'Nike', productCategory: '运动鞋', productDescription: '轻盈网面材质，透气不闷脚，防滑耐磨鞋底，适合通勤与日常运动。', style: 'simple' },
+                    { name: '潮流休闲鞋模板', productName: '复古拼色休闲鞋', productBrand: 'New Balance', productCategory: '休闲鞋', productDescription: '复古撞色设计，柔软中底缓震，日常穿搭百搭显腿长。', style: 'marketing' },
+                    { name: '女款跑步鞋模板', productName: '轻弹女款跑步鞋', productBrand: 'Adidas', productCategory: '跑步鞋', productDescription: '回弹中底提升步伐效率，鞋面包裹贴合，长距离跑步更轻松。', style: 'detailed' },
+                    { name: '户外徒步鞋模板', productName: '防水徒步登山鞋', productBrand: 'Columbia', productCategory: '户外鞋', productDescription: '防水鞋面结合抓地大底，适配雨天与碎石路况。', style: 'simple' },
+                    { name: '篮球鞋模板', productName: '高帮实战篮球鞋', productBrand: 'Li-Ning', productCategory: '篮球鞋', productDescription: '高帮支撑脚踝，急停变向更稳，适合室内外球场。', style: 'marketing' },
+                    { name: '儿童运动鞋模板', productName: '儿童防滑运动鞋', productBrand: '安踏儿童', productCategory: '童鞋', productDescription: '鞋头防撞设计，魔术贴穿脱方便，孩子活动更安心。', style: 'simple' },
+                    { name: '帆布鞋模板', productName: '经典低帮帆布鞋', productBrand: 'Converse', productCategory: '帆布鞋', productDescription: '经典鞋型不过时，透气耐穿，四季可搭。', style: 'simple' },
+                    { name: '商务皮鞋模板', productName: '男士软面商务皮鞋', productBrand: 'ECCO', productCategory: '皮鞋', productDescription: '精选头层皮革，轻便不磨脚，通勤会议都得体。', style: 'detailed' },
+                    { name: '拖鞋模板', productName: '云感厚底凉拖鞋', productBrand: 'Crocs', productCategory: '凉拖', productDescription: '轻量厚底脚感柔软，防滑鞋底，居家外出都舒适。', style: 'marketing' },
+                    { name: '冬季棉鞋模板', productName: '加绒保暖雪地棉鞋', productBrand: 'UGG', productCategory: '棉鞋', productDescription: '内里加绒蓄热保暖，鞋底防滑耐磨，冬季出行不冻脚。', style: 'detailed' }
+                ],
+                imageAnalysis: [
+                    { name: '运动鞋白底图', titleText: '运动鞋', subtitleText: '轻盈透气', bgStart: '#f97316', bgEnd: '#fb923c' },
+                    { name: 'T恤平铺图', titleText: 'T恤', subtitleText: '亲肤透气', bgStart: '#3b82f6', bgEnd: '#60a5fa' },
+                    { name: '护肤品主图', titleText: '护肤品', subtitleText: '温和保湿', bgStart: '#10b981', bgEnd: '#34d399' },
+                    { name: '箱包主图', titleText: '箱包', subtitleText: '轻便大容量', bgStart: '#8b5cf6', bgEnd: '#a78bfa' },
+                    { name: '耳机主图', titleText: '蓝牙耳机', subtitleText: '降噪长续航', bgStart: '#0ea5e9', bgEnd: '#38bdf8' },
+                    { name: '家电主图', titleText: '小家电', subtitleText: '高效节能', bgStart: '#14b8a6', bgEnd: '#2dd4bf' },
+                    { name: '母婴用品图', titleText: '母婴用品', subtitleText: '安全材质', bgStart: '#f43f5e', bgEnd: '#fb7185' },
+                    { name: '办公用品图', titleText: '办公用品', subtitleText: '实用耐用', bgStart: '#64748b', bgEnd: '#94a3b8' },
+                    { name: '宠物用品图', titleText: '宠物用品', subtitleText: '舒适好用', bgStart: '#f59e0b', bgEnd: '#fbbf24' },
+                    { name: '食品主图', titleText: '零食', subtitleText: '新鲜美味', bgStart: '#ef4444', bgEnd: '#f87171' }
+                ],
+                poster: [
+                    { name: '夏季促销模板', productName: '夏季爆款T恤', productBrand: 'Adidas', productPrice: '¥99', promotionCopy: '夏季限时特惠，买一送一！', sellingPoints: '透气舒适,时尚百搭,高品质面料', style: 'modern' },
+                    { name: '新品首发模板', productName: '轻薄防晒外套', productBrand: 'UNIQLO', productPrice: '¥149', promotionCopy: '新品首发立减30元', sellingPoints: 'UPF防晒,轻薄便携,速干面料', style: 'minimal' },
+                    { name: '节日活动模板', productName: '情侣卫衣套装', productBrand: 'MLB', productPrice: '¥239', promotionCopy: '节日限定第二件半价', sellingPoints: '情侣同款,柔软亲肤,多色可选', style: 'modern' },
+                    { name: '高端礼赠模板', productName: '真皮商务钱包', productBrand: 'COACH', productPrice: '¥599', promotionCopy: '送礼优选 限量礼盒', sellingPoints: '头层牛皮,精致礼盒,品牌保障', style: 'luxury' },
+                    { name: '运动装备模板', productName: '专业瑜伽裤', productBrand: 'Lululemon', productPrice: '¥299', promotionCopy: '满300减50', sellingPoints: '高弹包裹,速干透气,提臀版型', style: 'minimal' },
+                    { name: '数码配件模板', productName: '磁吸充电宝', productBrand: 'Anker', productPrice: '¥179', promotionCopy: '下单赠数据线', sellingPoints: '强磁吸附,轻薄便携,快充兼容', style: 'modern' },
+                    { name: '家居清洁模板', productName: '无线吸尘器', productBrand: 'Dyson', productPrice: '¥1899', promotionCopy: '24期免息', sellingPoints: '强劲吸力,多场景刷头,长续航', style: 'luxury' },
+                    { name: '美妆套装模板', productName: '口红礼盒彩妆盘', productBrand: '3CE', productPrice: '¥329', promotionCopy: '限量套装 送化妆包', sellingPoints: '热门色号,持久显色,礼盒包装', style: 'modern' },
+                    { name: '母婴爆款模板', productName: '婴儿恒温奶瓶', productBrand: 'Pigeon', productPrice: '¥169', promotionCopy: '前100名加赠奶嘴', sellingPoints: '食品级材质,智能恒温,防胀气设计', style: 'minimal' },
+                    { name: '零食囤货模板', productName: '坚果混合大礼包', productBrand: '百草味', productPrice: '¥79', promotionCopy: '买2件8折', sellingPoints: '独立小包装,多种口味,新鲜烘焙', style: 'modern' }
+                ]
+            };
+        }
+
+        function getTemplateLibraryFromStorage() {
+            const defaults = getDefaultTemplateLibrary();
+            const saved = localStorage.getItem(TEMPLATE_LIBRARY_STORAGE_KEY);
+            if (!saved) return defaults;
+
+            try {
+                const parsed = JSON.parse(saved);
+                return {
+                    copywriting: Array.isArray(parsed.copywriting) && parsed.copywriting.length === 10 ? parsed.copywriting : defaults.copywriting,
+                    imageAnalysis: Array.isArray(parsed.imageAnalysis) && parsed.imageAnalysis.length === 10 ? parsed.imageAnalysis : defaults.imageAnalysis,
+                    poster: Array.isArray(parsed.poster) && parsed.poster.length === 10 ? parsed.poster : defaults.poster
+                };
+            } catch (error) {
+                console.error('模板库解析失败，使用默认模板:', error);
+                return defaults;
+            }
+        }
+
+        function saveTemplateLibraryToStorage() {
+            localStorage.setItem(TEMPLATE_LIBRARY_STORAGE_KEY, JSON.stringify(templateLibrary));
+        }
+
+        // 任务数据结构
+        function createTask(type, inputData, outputData) {
+            return {
+                id: Date.now().toString(), // 使用时间戳作为唯一ID
+                type: type, // 任务类型：copywriting, imageAnalysis, poster
+                typeName: getTaskTypeName(type), // 任务类型名称
+                inputData: inputData, // 输入数据
+                outputData: outputData, // 输出数据
+                status: 'completed', // 任务状态：pending, processing, completed
+                createTime: new Date().toISOString(), // 创建时间
+                updateTime: new Date().toISOString() // 更新时间
+            };
+        }
+
+        // 获取任务类型名称
+        function getTaskTypeName(type) {
+            const typeNames = {
+                copywriting: '文案生成',
+                imageAnalysis: '图片卖点',
+                poster: '电商海报'
+            };
+            return typeNames[type] || '未知任务';
+        }
+
+        // 保存任务到localStorage
+        function saveTaskToStorage(task) {
+            const tasks = getTasksFromStorage();
+            tasks.push(task);
+            localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
+            renderHomeDashboard();
+            console.log('任务已保存到localStorage:', task);
+        }
+
+        // 从localStorage获取所有任务
+        function getTasksFromStorage() {
+            const tasks = localStorage.getItem(TASKS_STORAGE_KEY);
+            return tasks ? JSON.parse(tasks) : [];
+        }
+
+        // 渲染工作台任务统计
+        function renderHomeDashboard() {
+            const tasks = getTasksFromStorage();
+            const counts = {
+                copywriting: 0,
+                imageAnalysis: 0,
+                poster: 0
+            };
+
+            tasks.forEach(task => {
+                if (task?.status === 'completed' && counts[task.type] !== undefined) {
+                    counts[task.type] += 1;
+                }
+            });
+
+            const copywritingCountEl = document.getElementById('homeCopywritingCount');
+            const imageAnalysisCountEl = document.getElementById('homeImageAnalysisCount');
+            const posterCountEl = document.getElementById('homePosterCount');
+
+            if (copywritingCountEl) copywritingCountEl.textContent = String(counts.copywriting);
+            if (imageAnalysisCountEl) imageAnalysisCountEl.textContent = String(counts.imageAnalysis);
+            if (posterCountEl) posterCountEl.textContent = String(counts.poster);
+        }
+
+        function buildTaskSearchText(task) {
+            const inputData = task?.inputData || {};
+            const outputData = task?.outputData || {};
+            const parts = [
+                task?.typeName,
+                task?.type,
+                inputData.productName,
+                inputData.productBrand,
+                inputData.productCategory,
+                inputData.productDescription,
+                inputData.promotionCopy
+            ];
+
+            if (Array.isArray(inputData.sellingPoints)) {
+                parts.push(...inputData.sellingPoints);
+            } else if (typeof inputData.sellingPoints === 'string') {
+                parts.push(inputData.sellingPoints);
+            }
+
+            if (Array.isArray(outputData.sellingPoints)) {
+                parts.push(...outputData.sellingPoints);
+            }
+            if (Array.isArray(outputData.liveScripts)) {
+                parts.push(...outputData.liveScripts);
+            }
+            if (Array.isArray(outputData.liveDescriptions)) {
+                parts.push(...outputData.liveDescriptions);
+            }
+
+            if (typeof outputData.douyinTitle === 'string') parts.push(outputData.douyinTitle);
+            if (typeof outputData.douyinTagline === 'string') parts.push(outputData.douyinTagline);
+            if (typeof outputData.liveTitle === 'string') parts.push(outputData.liveTitle);
+            if (typeof outputData.liveTagline === 'string') parts.push(outputData.liveTagline);
+            if (typeof outputData.keywords === 'string') parts.push(outputData.keywords);
+            if (typeof outputData.description === 'string') parts.push(outputData.description);
+
+            return parts
+                .filter(value => typeof value === 'string' && value.trim())
+                .join(' ')
+                .toLowerCase();
+        }
+
+        // 渲染任务列表
+        function renderTaskList() {
+            const taskListContainer = document.querySelector('#taskPage .space-y-4');
+            if (!taskListContainer) return;
+
+            const tasks = getTasksFromStorage();
+            const searchText = taskSearchInput?.value?.trim().toLowerCase() || '';
+            const filteredTasks = searchText
+                ? tasks.filter(task => buildTaskSearchText(task).includes(searchText))
+                : tasks;
+
+            // 清空现有任务列表
+            taskListContainer.innerHTML = '';
+
+            // 如果没有任务，显示提示
+            if (tasks.length === 0) {
+                taskListContainer.innerHTML = `
+                    <div class="p-8 text-center text-gray-500 border border-gray-200 rounded-xl bg-gray-50">
+                        <div class="text-4xl mb-4">📋</div>
+                        <p class="text-lg">暂无任务</p>
+                        <p class="text-sm mt-2">请先完成文案生成、图片卖点或电商海报任务</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (filteredTasks.length === 0) {
+                taskListContainer.innerHTML = `
+                    <div class="p-8 text-center text-gray-500 border border-gray-200 rounded-xl bg-gray-50">
+                        <div class="text-4xl mb-4">🔎</div>
+                        <p class="text-lg">未找到相关任务</p>
+                        <p class="text-sm mt-2">请调整关键词后再试</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 渲染任务列表
+            filteredTasks.forEach(task => {
+                const taskElement = createTaskElement(task);
+                taskListContainer.appendChild(taskElement);
+            });
+        }
+
+        // 创建任务列表项
+        function createTaskElement(task) {
+            const div = document.createElement('div');
+            div.className = 'p-4 border border-gray-200 rounded-xl bg-gray-50 hover:shadow-md transition-shadow';
+            div.innerHTML = `
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-sm font-semibold text-gray-800">${task.typeName}</div>
+                    <div class="text-xs text-gray-500">${formatTime(task.createTime)}</div>
+                </div>
+                <div class="text-sm text-gray-600 mb-3">
+                    ${getTaskSummary(task)}
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button class="custom-button btn-primary text-sm" onclick="viewTaskDetails('${task.id}')">
+                        <span>📄</span>
+                        查看详情
+                    </button>
+                    <button class="custom-button btn-secondary text-sm" onclick="deleteTask('${task.id}')">
+                        <span>🗑️</span>
+                        删除
+                    </button>
+                </div>
+            `;
+            return div;
+        }
+
+        // 格式化时间
+        function formatTime(timeString) {
+            const date = new Date(timeString);
+            const now = new Date();
+            const diff = now - date;
+
+            if (diff < 60000) { // 小于1分钟
+                return '刚刚';
+            } else if (diff < 3600000) { // 小于1小时
+                return `${Math.floor(diff / 60000)}分钟前`;
+            } else if (diff < 86400000) { // 小于1天
+                return `${Math.floor(diff / 3600000)}小时前`;
+            } else {
+                return date.toLocaleDateString('zh-CN');
+            }
+        }
+
+        // 获取任务摘要
+        function getTaskSummary(task) {
+            const { type, inputData, outputData } = task;
+
+            switch (type) {
+                case 'copywriting':
+                    return `商品名称: ${inputData.productName || '未填写'} | 生成文案数: ${getCopywritingCount(outputData)}`;
+                case 'imageAnalysis':
+                    return `图片分析: ${inputData.productImage ? '已上传' : '未上传'} | 卖点数: ${getSellingPointsCount(outputData)}`;
+                case 'poster':
+                    return `商品名称: ${inputData.productName || '未填写'} | 海报生成: ${outputData.posterUrl ? '已生成' : '未生成'}`;
+                default:
+                    return '任务摘要';
+            }
+        }
+
+        // 获取文案生成数量
+        function getCopywritingCount(outputData) {
+            if (!outputData) return 0;
+
+            let count = 0;
+            if (outputData.douyinTitle) count++;
+            if (outputData.douyinTagline) count++;
+            if (outputData.liveTitle) count++;
+            if (outputData.liveTagline) count++;
+            if (outputData.liveScripts) count++;
+            if (outputData.liveDescriptions) count++;
+
+            return count;
+        }
+
+        // 获取卖点数量
+        function getSellingPointsCount(outputData) {
+            if (!outputData || !outputData.sellingPoints) return 0;
+            return outputData.sellingPoints.length;
+        }
+
+        // 显示任务详情模态框
+        function showTaskDetailModal(task) {
+            const modal = document.getElementById('taskDetailModal');
+            const content = document.getElementById('taskDetailContent');
+            const title = document.getElementById('taskDetailTitle');
+
+            if (!modal || !content || !title) return;
+
+            // 设置模态框标题
+            title.textContent = task.typeName + ' - 任务详情';
+
+            // 渲染任务详情内容
+            content.innerHTML = renderTaskDetailContent(task);
+
+            // 显示模态框
+            modal.style.display = 'block';
+
+            // 为模态框添加点击外部关闭事件
+            modal.onclick = function(event) {
+                if (event.target === modal) {
+                    closeTaskDetailModal();
+                }
+            };
+        }
+
+        // 关闭任务详情模态框
+        function closeTaskDetailModal() {
+            const modal = document.getElementById('taskDetailModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // 渲染任务详情内容
+        function renderTaskDetailContent(task) {
+            const { type, inputData, outputData } = task;
+
+            switch(type) {
+                case 'copywriting':
+                    return renderCopywritingDetail(inputData, outputData);
+                case 'imageAnalysis':
+                    return renderImageAnalysisDetail(inputData, outputData);
+                case 'poster':
+                    return renderPosterDetail(inputData, outputData);
+                default:
+                    return '<div class="p-4 text-center text-gray-500">未知任务类型</div>';
+            }
+        }
+
+        // 渲染文案生成任务详情
+        function renderCopywritingDetail(inputData, outputData) {
+            return `
+                <div class="space-y-6">
+                    <!-- 输入信息 -->
+                    <div class="custom-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">输入信息</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">商品名称</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${inputData.productName || '未填写'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">品牌</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${inputData.productBrand || '未填写'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">类目</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${inputData.productCategory || '未填写'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">商品描述</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${inputData.productDescription || '未填写'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">文案风格</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${getCopywritingStyleName(inputData.style)}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 输出结果 -->
+                    <div class="custom-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">生成结果</h3>
+                        <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">
+                            ${outputData.copywriting || '未生成文案'}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染图片卖点任务详情
+        function renderImageAnalysisDetail(inputData, outputData) {
+            const imageDataUrl = typeof inputData.productImage === 'string' && inputData.productImage.startsWith('data:image')
+                ? inputData.productImage
+                : '';
+
+            return `
+                <div class="space-y-6">
+                    <!-- 输入信息 -->
+                    <div class="custom-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">输入信息</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">商品图片</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">
+                                    ${imageDataUrl
+                                        ? `<img src="${imageDataUrl}" alt="商品图片" class="max-w-full h-auto rounded-lg shadow-sm">`
+                                        : `${inputData.productImage ? '已上传' : '未上传'}`
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 输出结果 -->
+                    <div class="custom-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">分析结果</h3>
+                        <div class="space-y-3">
+                            ${outputData.sellingPoints ? `
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">核心卖点</label>
+                                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">
+                                        ${outputData.sellingPoints.map(point => `<div class="inline-block bg-orange-100 text-orange-800 px-2 py-1 rounded text-sm mr-1 mb-1">${point}</div>`).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            ${outputData.keywords ? `
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">关键词</label>
+                                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">
+                                        ${outputData.keywords.map(keyword => `<div class="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm mr-1 mb-1">${keyword}</div>`).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            ${outputData.description ? `
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">图片描述</label>
+                                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${outputData.description}</div>
+                                </div>
+                            ` : ''}
+
+                            ${outputData.rawText ? `
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">原始结果</label>
+                                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${outputData.rawText}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染电商海报任务详情
+        function renderPosterDetail(inputData, outputData) {
+            return `
+                <div class="space-y-6">
+                    <!-- 输入信息 -->
+                    <div class="custom-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">输入信息</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">商品名称</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${inputData.productName || '未填写'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">品牌</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${inputData.productBrand || '未填写'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">价格</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${inputData.productPrice || '未填写'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">促销文案</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${inputData.promotionCopy || '未填写'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">海报风格</label>
+                                <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">${getPosterStyleName(inputData.style)}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 输出结果 -->
+                    <div class="custom-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">生成结果</h3>
+                        ${outputData.posterUrl ? `
+                            <div class="text-center">
+                                <img src="${outputData.posterUrl}" alt="生成的海报" class="max-w-full h-auto rounded-lg shadow-md">
+                            </div>
+                        ` : `
+                            <div class="p-3 border border-gray-200 rounded-lg bg-gray-50 text-center">未生成海报</div>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        // 获取文案风格名称
+        function getCopywritingStyleName(style) {
+            const styleNames = {
+                simple: '简洁风格',
+                marketing: '营销风格',
+                detailed: '详细风格'
+            };
+            return styleNames[style] || '未知风格';
+        }
+
+        // 获取海报风格名称
+        function getPosterStyleName(style) {
+            const styleNames = {
+                modern: '现代风格',
+                minimal: '简约风格',
+                luxury: '奢华风格'
+            };
+            return styleNames[style] || '未知风格';
+        }
+
+        // 查看任务详情
+        function viewTaskDetails(taskId) {
+            const tasks = getTasksFromStorage();
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) {
+                alert('任务不存在');
+                return;
+            }
+
+            // 显示任务详情模态框
+            showTaskDetailModal(task);
+        }
+
+        // 删除任务
+        function deleteTask(taskId) {
+            if (!confirm('确定要删除此任务吗？')) return;
+
+            const tasks = getTasksFromStorage();
+            const filteredTasks = tasks.filter(t => t.id !== taskId);
+            localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(filteredTasks));
+            renderTaskList();
+            renderHomeDashboard();
+            console.log('任务已删除:', taskId);
+        }
 
         // 保存数据到 localStorage
         function saveDataToStorage() {
@@ -1354,7 +1910,7 @@
         const copywritingProductImage = document.getElementById('copywritingProductImage');
         const copywritingImagePreview = document.getElementById('copywritingImagePreview');
         const generateCopywritingBtn = document.getElementById('generateCopywritingBtn');
-        const fillCopywritingTestDataBtn = document.getElementById('fillCopywritingTestDataBtn');
+        const fillCopywritingTemplateBtn = document.getElementById('fillCopywritingTemplateBtn');
         const copywritingInitialState = document.getElementById('copywritingInitialState');
         const copywritingLoadingState = document.getElementById('copywritingLoadingState');
         const copywritingResultState = document.getElementById('copywritingResultState');
@@ -1370,7 +1926,7 @@
         const imageAnalysisProductImage = document.getElementById('imageAnalysisProductImage');
         const imageAnalysisImagePreview = document.getElementById('imageAnalysisImagePreview');
         const analyzeImageBtn = document.getElementById('analyzeImageBtn');
-        const fillImageAnalysisTestDataBtn = document.getElementById('fillImageAnalysisTestDataBtn');
+        const fillImageAnalysisTemplateBtn = document.getElementById('fillImageAnalysisTemplateBtn');
         const imageAnalysisInitialState = document.getElementById('imageAnalysisInitialState');
         const imageAnalysisLoadingState = document.getElementById('imageAnalysisLoadingState');
         const imageAnalysisResultState = document.getElementById('imageAnalysisResultState');
@@ -1391,7 +1947,7 @@
         const posterSellingPoints = document.getElementById('posterSellingPoints');
         const posterTagsContainer = document.getElementById('posterTagsContainer');
         const generatePosterBtn = document.getElementById('generatePosterBtn');
-        const fillPosterTestDataBtn = document.getElementById('fillPosterTestDataBtn');
+        const fillPosterTemplateBtn = document.getElementById('fillPosterTemplateBtn');
         const posterInitialState = document.getElementById('posterInitialState');
         const posterLoadingState = document.getElementById('posterLoadingState');
         const posterResultState = document.getElementById('posterResultState');
@@ -1403,6 +1959,23 @@
         const downloadPosterBtn = document.getElementById('downloadPosterBtn');
         const regeneratePosterBtn = document.getElementById('regeneratePosterBtn');
         const clearPosterResultBtn = document.getElementById('clearPosterResultBtn');
+        const generateDouyinImageBtn = document.getElementById('generateDouyinImageBtn');
+        const templateManagerContainer = document.getElementById('templateManagerContainer');
+        const resetTemplateLibraryBtn = document.getElementById('resetTemplateLibraryBtn');
+        const taskSearchInput = document.getElementById('taskSearchInput');
+        const taskSearchBtn = document.getElementById('taskSearchBtn');
+        const imageModal = document.getElementById('imageModal');
+        const templateSelectModal = document.getElementById('templateSelectModal');
+        const templateSelectTitle = document.getElementById('templateSelectTitle');
+        const templateSelectList = document.getElementById('templateSelectList');
+        const closeTemplateSelectBtn = document.getElementById('closeTemplateSelectBtn');
+        const templateEditModal = document.getElementById('templateEditModal');
+        const templateEditTitle = document.getElementById('templateEditTitle');
+        const templateEditFormContainer = document.getElementById('templateEditFormContainer');
+        const closeTemplateEditBtn = document.getElementById('closeTemplateEditBtn');
+        const cancelTemplateEditBtn = document.getElementById('cancelTemplateEditBtn');
+        const saveTemplateEditBtn = document.getElementById('saveTemplateEditBtn');
+        let currentEditingTemplate = null;
 
 
         // 页面加载时初始化数据
@@ -1422,6 +1995,22 @@
                     item.classList.add('active');
                     // 切换页面
                     switchPage(index);
+                });
+            });
+
+            // 工作台快速开始跳转
+            const quickStartItems = document.querySelectorAll('#homePage [data-target-page]');
+            quickStartItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const targetPage = Number(item.getAttribute('data-target-page'));
+                    if (Number.isNaN(targetPage)) return;
+
+                    sidebarItems.forEach(i => i.classList.remove('active'));
+                    if (sidebarItems[targetPage]) {
+                        sidebarItems[targetPage].classList.add('active');
+                    }
+
+                    switchPage(targetPage);
                 });
             });
 
@@ -1464,10 +2053,9 @@
             if (clearCopywritingResultBtn) {
                 clearCopywritingResultBtn.addEventListener('click', clearCopywritingResult);
             }
-            if (fillCopywritingTestDataBtn) {
-                fillCopywritingTestDataBtn.addEventListener('click', () => {
-                    fillCopywritingTestData();
-                    saveDataToStorage();
+            if (fillCopywritingTemplateBtn) {
+                fillCopywritingTemplateBtn.addEventListener('click', () => {
+                    openTemplateSelector('copywriting');
                 });
             }
 
@@ -1484,10 +2072,9 @@
             if (clearImageAnalysisResultBtn) {
                 clearImageAnalysisResultBtn.addEventListener('click', clearImageAnalysisResult);
             }
-            if (fillImageAnalysisTestDataBtn) {
-                fillImageAnalysisTestDataBtn.addEventListener('click', () => {
-                    fillImageAnalysisTestData();
-                    saveDataToStorage();
+            if (fillImageAnalysisTemplateBtn) {
+                fillImageAnalysisTemplateBtn.addEventListener('click', () => {
+                    openTemplateSelector('imageAnalysis');
                 });
             }
 
@@ -1523,10 +2110,38 @@
             if (downloadPosterBtn) {
                 downloadPosterBtn.addEventListener('click', downloadPoster);
             }
-            if (fillPosterTestDataBtn) {
-                fillPosterTestDataBtn.addEventListener('click', () => {
-                    fillPosterTestData();
-                    saveDataToStorage();
+            if (fillPosterTemplateBtn) {
+                fillPosterTemplateBtn.addEventListener('click', () => {
+                    openTemplateSelector('poster');
+                });
+            }
+
+            if (resetTemplateLibraryBtn) {
+                resetTemplateLibraryBtn.addEventListener('click', () => {
+                    if (!confirm('确定将模板库重置为默认模板吗？')) return;
+                    templateLibrary = getDefaultTemplateLibrary();
+                    saveTemplateLibraryToStorage();
+                    renderTemplateLibraryManager();
+                    renderTemplatePickers();
+                    alert('模板库已重置为默认模板');
+                });
+            }
+
+            if (taskSearchBtn) {
+                taskSearchBtn.addEventListener('click', () => {
+                    renderTaskList();
+                });
+            }
+
+            if (taskSearchInput) {
+                taskSearchInput.addEventListener('input', () => {
+                    renderTaskList();
+                });
+                taskSearchInput.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        renderTaskList();
+                    }
                 });
             }
 
@@ -1536,11 +2151,45 @@
             }
 
             // 弹窗关闭事件
-            imageModal.addEventListener('click', function(e) {
-                if (e.target === imageModal) {
-                    closeModal();
-                }
-            });
+            if (imageModal) {
+                imageModal.addEventListener('click', function(e) {
+                    if (e.target === imageModal) {
+                        closeModal();
+                    }
+                });
+            }
+
+            if (closeTemplateSelectBtn) {
+                closeTemplateSelectBtn.addEventListener('click', closeTemplateSelector);
+            }
+
+            if (templateSelectModal) {
+                templateSelectModal.addEventListener('click', function(e) {
+                    if (e.target === templateSelectModal) {
+                        closeTemplateSelector();
+                    }
+                });
+            }
+
+            if (closeTemplateEditBtn) {
+                closeTemplateEditBtn.addEventListener('click', closeTemplateEditor);
+            }
+
+            if (cancelTemplateEditBtn) {
+                cancelTemplateEditBtn.addEventListener('click', closeTemplateEditor);
+            }
+
+            if (saveTemplateEditBtn) {
+                saveTemplateEditBtn.addEventListener('click', saveTemplateFromEditor);
+            }
+
+            if (templateEditModal) {
+                templateEditModal.addEventListener('click', function(e) {
+                    if (e.target === templateEditModal) {
+                        closeTemplateEditor();
+                    }
+                });
+            }
         }
 
         // 页面切换函数
@@ -1553,6 +2202,7 @@
             switch(pageIndex) {
                 case 0: // 工作台（首页）
                     document.getElementById('homePage').classList.remove('hidden');
+                    renderHomeDashboard();
                     break;
                 case 1: // 文案生成
                     document.getElementById('copywritingPage').classList.remove('hidden');
@@ -1565,9 +2215,12 @@
                     break;
                 case 4: // 商品任务列表
                     document.getElementById('taskPage').classList.remove('hidden');
+                    // 渲染任务列表
+                    renderTaskList();
                     break;
                 case 5: // 模板库
                     document.getElementById('templatePage').classList.remove('hidden');
+                    renderTemplateLibraryManager();
                     break;
                 case 6: // 设置
                     document.getElementById('settingsPage').classList.remove('hidden');
@@ -1730,6 +2383,24 @@
         }
 
         function displayCopywritingResult(result) {
+            // 解析生成的文案
+            const copywritingResult = extractArkTextContent(result);
+
+            // 保存任务信息
+            const inputData = {
+                productName: copywritingProductName?.value?.trim() || '',
+                productBrand: copywritingProductBrand?.value?.trim() || '',
+                productCategory: copywritingProductCategory?.value?.trim() || '',
+                productDescription: copywritingProductDescription?.value?.trim() || '',
+                style: document.querySelector('input[name="copywritingStyle"]:checked')?.value || 'simple'
+            };
+
+            const outputData = {
+                copywriting: copywritingResult
+            };
+
+            const task = createTask('copywriting', inputData, outputData);
+            saveTaskToStorage(task);
             if (copywritingLoadingState && copywritingResultState && generatedCopywritingTitle && generatedCopywritingContent) {
                 try {
                     const generatedText = extractArkTextContent(result);
@@ -1772,54 +2443,110 @@
             }
         }
 
-        // 测试数据填充函数
-        function fillCopywritingTestData() {
-            if (copywritingProductName) {
-                copywritingProductName.value = '夏季透气运动鞋';
-            }
-            if (copywritingProductBrand) {
-                copywritingProductBrand.value = 'Nike';
-            }
-            if (copywritingProductCategory) {
-                copywritingProductCategory.value = '运动鞋';
-            }
-            if (copywritingProductDescription) {
-                copywritingProductDescription.value = '这款夏季透气运动鞋采用轻盈网面材质，提供出色的通风效果，让双脚在运动过程中保持干爽舒适。鞋底采用防滑橡胶材质，提供稳定的抓地力，适合各种运动场景。';
-            }
-            // 检查并启用生成按钮
-            checkCopywritingFormValidity();
+        // 模板填充功能
+        function renderTemplatePickers() {
+            if (!templateLibrary) return;
         }
 
-        function fillImageAnalysisTestData() {
-            // 创建一个简单的测试图片（彩色方块）
+        function getTemplateTaskTitle(taskType) {
+            const titleMap = {
+                copywriting: '文案模板（10个）',
+                imageAnalysis: '图片分析模板（10个）',
+                poster: '海报模板（10个）'
+            };
+            return titleMap[taskType] || '模板（10个）';
+        }
+
+        function openTemplateSelector(taskType) {
+            if (!templateSelectModal || !templateSelectTitle || !templateSelectList) return;
+            templateSelectTitle.textContent = getTemplateTaskTitle(taskType);
+            renderTemplatePickerList(taskType);
+            templateSelectModal.style.display = 'block';
+        }
+
+        function closeTemplateSelector() {
+            if (templateSelectModal) {
+                templateSelectModal.style.display = 'none';
+            }
+        }
+
+        function renderTemplatePickerList(taskType) {
+            if (!templateSelectList || !templateLibrary?.[taskType]) return;
+
+            templateSelectList.innerHTML = '';
+            templateLibrary[taskType].forEach((template, index) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'custom-button btn-secondary text-sm w-full';
+                button.textContent = `${index + 1}. ${template.name || `模板${index + 1}`}`;
+                button.addEventListener('click', () => applyTemplate(taskType, index));
+                templateSelectList.appendChild(button);
+            });
+        }
+
+        function applyTemplate(taskType, index) {
+            const template = templateLibrary?.[taskType]?.[index];
+            if (!template) return;
+
+            if (taskType === 'copywriting') {
+                if (copywritingProductName) copywritingProductName.value = template.productName || '';
+                if (copywritingProductBrand) copywritingProductBrand.value = template.productBrand || '';
+                if (copywritingProductCategory) copywritingProductCategory.value = template.productCategory || '';
+                if (copywritingProductDescription) copywritingProductDescription.value = template.productDescription || '';
+                const styleRadio = document.querySelector(`input[name="copywritingStyle"][value="${template.style || 'simple'}"]`);
+                if (styleRadio) styleRadio.checked = true;
+                checkCopywritingFormValidity();
+            }
+
+            if (taskType === 'imageAnalysis') {
+                fillImageAnalysisByTemplate(template);
+            }
+
+            if (taskType === 'poster') {
+                if (posterProductName) posterProductName.value = template.productName || '';
+                if (posterProductBrand) posterProductBrand.value = template.productBrand || '';
+                if (posterProductPrice) posterProductPrice.value = template.productPrice || '';
+                if (posterPromotionCopy) posterPromotionCopy.value = template.promotionCopy || '';
+                if (posterSellingPoints) posterSellingPoints.value = template.sellingPoints || '';
+
+                const styleRadio = document.querySelector(`input[name="posterStyle"][value="${template.style || 'modern'}"]`);
+                if (styleRadio) styleRadio.checked = true;
+
+                tags = (template.sellingPoints || '')
+                    .split(',')
+                    .map(item => item.trim())
+                    .filter(Boolean);
+                renderTags();
+                checkPosterFormValidity();
+            }
+
+            closeTemplateSelector();
+            saveDataToStorage();
+        }
+
+        function fillImageAnalysisByTemplate(template) {
             const canvas = document.createElement('canvas');
             canvas.width = 300;
             canvas.height = 300;
             const ctx = canvas.getContext('2d');
 
-            // 绘制彩色渐变背景
             const gradient = ctx.createLinearGradient(0, 0, 300, 300);
-            gradient.addColorStop(0, '#ff0000');
-            gradient.addColorStop(0.5, '#00ff00');
-            gradient.addColorStop(1, '#0000ff');
+            gradient.addColorStop(0, template.bgStart || '#f97316');
+            gradient.addColorStop(1, template.bgEnd || '#fb923c');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, 300, 300);
 
-            // 绘制文字
             ctx.fillStyle = 'white';
-            ctx.font = '30px Arial';
+            ctx.font = 'bold 34px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText('测试图片', 150, 150);
-            ctx.fillText('(运动鞋)', 150, 200);
+            ctx.fillText(template.titleText || '商品图片', 150, 145);
+            ctx.font = '22px Arial';
+            ctx.fillText(template.subtitleText || '模板填充', 150, 190);
 
-            // 将canvas转换为base64字符串
             const dataURL = canvas.toDataURL('image/png');
-
-            // 创建一个模拟的File对象
             const blob = dataURItoBlob(dataURL);
-            const file = new File([blob], 'test-image.png', { type: 'image/png' });
+            const file = new File([blob], `${template.name || 'template'}-image.png`, { type: 'image/png' });
 
-            // 触发input元素的change事件
             const event = new Event('change', { bubbles: true });
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
@@ -1830,39 +2557,217 @@
             }
         }
 
-        function fillPosterTestData() {
-            if (posterProductName) {
-                posterProductName.value = '夏季爆款T恤';
-            }
-            if (posterProductBrand) {
-                posterProductBrand.value = 'Adidas';
-            }
-            if (posterProductPrice) {
-                posterProductPrice.value = '¥99';
-            }
-            if (posterPromotionCopy) {
-                posterPromotionCopy.value = '夏季限时特惠，买一送一！';
-            }
-            if (posterSellingPoints) {
-                posterSellingPoints.value = '透气舒适,时尚百搭,高品质面料';
-            }
+        function renderTemplateLibraryManager() {
+            if (!templateManagerContainer || !templateLibrary) return;
 
-            // 检查并启用生成按钮
-            checkPosterFormValidity();
+            templateManagerContainer.innerHTML = '';
+            const config = [
+                { key: 'copywriting', title: '文案生成模板（10个）' },
+                { key: 'imageAnalysis', title: '图片分析模板（10个）' },
+                { key: 'poster', title: '海报生成模板（10个）' }
+            ];
 
-            // 自动添加标签
-            const tags = ['透气舒适', '时尚百搭', '高品质面料'];
-            tags.forEach(tag => {
-                const tagElement = document.createElement('span');
-                tagElement.className = 'tag-item';
-                tagElement.textContent = tag;
-                tagElement.addEventListener('click', function() {
-                    tagElement.remove();
-                });
-                if (posterTagsContainer) {
-                    posterTagsContainer.appendChild(tagElement);
-                }
+            config.forEach(item => {
+                const section = document.createElement('div');
+                section.className = 'border border-gray-200 rounded-xl p-4';
+
+                const listHtml = templateLibrary[item.key].map((template, index) => `
+                    <button
+                        type="button"
+                        class="custom-button btn-secondary text-sm w-full text-left"
+                        onclick="openTemplateEditor('${item.key}', ${index})"
+                    >
+                        <span>📄</span>
+                        ${index + 1}. ${template.name || `模板${index + 1}`}
+                    </button>
+                `).join('');
+
+                section.innerHTML = `
+                    <div class="mb-3">
+                        <h3 class="text-base font-semibold text-gray-800">${item.title}</h3>
+                        <p class="text-xs text-gray-500 mt-1">页面仅显示模板名，点击后弹出与填充页一致的编辑卡片</p>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                        ${listHtml}
+                    </div>
+                `;
+
+                templateManagerContainer.appendChild(section);
             });
+        }
+
+        function openTemplateEditor(taskType, index) {
+            const template = templateLibrary?.[taskType]?.[index];
+            if (!template || !templateEditModal || !templateEditTitle || !templateEditFormContainer) return;
+
+            currentEditingTemplate = { taskType, index };
+            templateEditTitle.textContent = `编辑模板：${template.name || `模板${index + 1}`}`;
+            templateEditFormContainer.innerHTML = renderTemplateEditorForm(taskType, template);
+            templateEditModal.style.display = 'block';
+        }
+
+        function closeTemplateEditor() {
+            if (templateEditModal) {
+                templateEditModal.style.display = 'none';
+            }
+            currentEditingTemplate = null;
+        }
+
+        function renderTemplateEditorForm(taskType, template) {
+            if (taskType === 'copywriting') {
+                return `
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-4">商品信息</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">模板名称</label>
+                                <input id="templateEditName" type="text" class="custom-input" value="${template.name || ''}" placeholder="模板名称">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">商品名称</label>
+                                <input id="templateEditProductName" type="text" class="custom-input" value="${template.productName || ''}" placeholder="例如：透气运动跑鞋">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">品牌</label>
+                                    <input id="templateEditProductBrand" type="text" class="custom-input" value="${template.productBrand || ''}" placeholder="品牌名">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">类目</label>
+                                    <input id="templateEditProductCategory" type="text" class="custom-input" value="${template.productCategory || ''}" placeholder="例如：运动鞋">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">商品描述</label>
+                                <textarea id="templateEditProductDescription" class="custom-input" rows="4" placeholder="输入商品的详细描述、特色功能等">${template.productDescription || ''}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">文案风格</h3>
+                        <select id="templateEditStyle" class="custom-input">
+                            <option value="simple" ${template.style === 'simple' ? 'selected' : ''}>简洁风格</option>
+                            <option value="marketing" ${template.style === 'marketing' ? 'selected' : ''}>营销风格</option>
+                            <option value="detailed" ${template.style === 'detailed' ? 'selected' : ''}>详细风格</option>
+                        </select>
+                    </div>
+                `;
+            }
+
+            if (taskType === 'poster') {
+                return `
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-4">商品信息</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">模板名称</label>
+                                <input id="templateEditName" type="text" class="custom-input" value="${template.name || ''}" placeholder="模板名称">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">商品名称</label>
+                                <input id="templateEditProductName" type="text" class="custom-input" value="${template.productName || ''}" placeholder="例如：透气运动跑鞋">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">品牌</label>
+                                    <input id="templateEditProductBrand" type="text" class="custom-input" value="${template.productBrand || ''}" placeholder="品牌名">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">价格</label>
+                                    <input id="templateEditProductPrice" type="text" class="custom-input" value="${template.productPrice || ''}" placeholder="例如：¥199">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">促销文案</label>
+                                <textarea id="templateEditPromotionCopy" class="custom-input" rows="3" placeholder="输入促销文案">${template.promotionCopy || ''}</textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">卖点关键词</label>
+                                <input id="templateEditSellingPoints" type="text" class="custom-input" value="${template.sellingPoints || ''}" placeholder="输入核心卖点，用逗号分隔">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">海报样式</h3>
+                        <select id="templateEditStyle" class="custom-input">
+                            <option value="modern" ${template.style === 'modern' ? 'selected' : ''}>现代风格</option>
+                            <option value="minimal" ${template.style === 'minimal' ? 'selected' : ''}>简约风格</option>
+                            <option value="luxury" ${template.style === 'luxury' ? 'selected' : ''}>奢华风格</option>
+                        </select>
+                    </div>
+                `;
+            }
+
+            return `
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-700 mb-4">商品图片（模板参数）</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">模板名称</label>
+                            <input id="templateEditName" type="text" class="custom-input" value="${template.name || ''}" placeholder="模板名称">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">主标题</label>
+                            <input id="templateEditTitleText" type="text" class="custom-input" value="${template.titleText || ''}" placeholder="例如：运动鞋">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">副标题</label>
+                            <input id="templateEditSubtitleText" type="text" class="custom-input" value="${template.subtitleText || ''}" placeholder="例如：轻盈透气">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">渐变起始色</label>
+                                <input id="templateEditBgStart" type="text" class="custom-input" value="${template.bgStart || ''}" placeholder="#f97316">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">渐变结束色</label>
+                                <input id="templateEditBgEnd" type="text" class="custom-input" value="${template.bgEnd || ''}" placeholder="#fb923c">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function saveTemplateFromEditor() {
+            if (!currentEditingTemplate) return;
+
+            const { taskType, index } = currentEditingTemplate;
+
+            if (taskType === 'copywriting') {
+                templateLibrary[taskType][index] = {
+                    name: document.getElementById('templateEditName')?.value || `模板${index + 1}`,
+                    productName: document.getElementById('templateEditProductName')?.value || '',
+                    productBrand: document.getElementById('templateEditProductBrand')?.value || '',
+                    productCategory: document.getElementById('templateEditProductCategory')?.value || '',
+                    productDescription: document.getElementById('templateEditProductDescription')?.value || '',
+                    style: document.getElementById('templateEditStyle')?.value || 'simple'
+                };
+            } else if (taskType === 'poster') {
+                templateLibrary[taskType][index] = {
+                    name: document.getElementById('templateEditName')?.value || `模板${index + 1}`,
+                    productName: document.getElementById('templateEditProductName')?.value || '',
+                    productBrand: document.getElementById('templateEditProductBrand')?.value || '',
+                    productPrice: document.getElementById('templateEditProductPrice')?.value || '',
+                    promotionCopy: document.getElementById('templateEditPromotionCopy')?.value || '',
+                    sellingPoints: document.getElementById('templateEditSellingPoints')?.value || '',
+                    style: document.getElementById('templateEditStyle')?.value || 'modern'
+                };
+            } else {
+                templateLibrary[taskType][index] = {
+                    name: document.getElementById('templateEditName')?.value || `模板${index + 1}`,
+                    titleText: document.getElementById('templateEditTitleText')?.value || '',
+                    subtitleText: document.getElementById('templateEditSubtitleText')?.value || '',
+                    bgStart: document.getElementById('templateEditBgStart')?.value || '#f97316',
+                    bgEnd: document.getElementById('templateEditBgEnd')?.value || '#fb923c'
+                };
+            }
+
+            saveTemplateLibraryToStorage();
+            renderTemplateLibraryManager();
+            renderTemplatePickers();
+            closeTemplateEditor();
+            alert('模板保存成功');
         }
 
         // 辅助函数：将dataURI转换为Blob
@@ -1954,7 +2859,7 @@
                         ];
 
                         callArkTextAPI(messages).then(result => {
-                            displayImageAnalysisResult(result);
+                            displayImageAnalysisResult(result, imageDataURL);
                         });
                     };
                     reader.readAsDataURL(imageAnalysisProductImage.files[0]);
@@ -1967,7 +2872,34 @@
             }
         }
 
-        function displayImageAnalysisResult(result) {
+        function displayImageAnalysisResult(result, imageDataURL) {
+            // 保存任务信息
+            const storedImage = typeof imageDataURL === 'string' && imageDataURL.startsWith('data:image')
+                ? imageDataURL
+                : 'image_uploaded';
+            const inputData = {
+                productImage: storedImage // 保存图片用于任务详情
+            };
+
+            const outputData = {};
+
+            // 解析图片分析结果
+            if (result) {
+                const analysisText = extractArkTextContent(result);
+                try {
+                    const analysisResult = JSON.parse(analysisText);
+                    outputData.sellingPoints = analysisResult.selling_points || [];
+                    outputData.keywords = analysisResult.keywords || [];
+                    outputData.description = analysisResult.description || '';
+                } catch (error) {
+                    console.error('解析图片分析结果失败:', error);
+                    // 如果无法解析为JSON，直接保存文本结果
+                    outputData.rawText = analysisText;
+                }
+            }
+
+            const task = createTask('imageAnalysis', inputData, outputData);
+            saveTaskToStorage(task);
             if (imageAnalysisLoadingState && imageAnalysisResultState && imageAnalysisSellingPoints && imageAnalysisKeywords && imageAnalysisDescription) {
                 imageAnalysisLoadingState.classList.add('hidden');
                 imageAnalysisResultState.classList.remove('hidden');
@@ -2123,6 +3055,23 @@
         }
 
         function displayPosterResult(result) {
+            // 保存任务信息
+            const inputData = {
+                productName: posterProductName?.value?.trim() || '',
+                productBrand: posterProductBrand?.value?.trim() || '',
+                productPrice: posterProductPrice?.value?.trim() || '',
+                promotionCopy: posterPromotionCopy?.value?.trim() || '',
+                style: document.querySelector('input[name="posterStyle"]:checked')?.value || 'modern'
+            };
+
+            const outputData = {};
+
+            if (result && result.data && result.data.length > 0) {
+                outputData.posterUrl = result.data[0].url;
+            }
+
+            const task = createTask('poster', inputData, outputData);
+            saveTaskToStorage(task);
             if (posterLoadingState && posterResultState && posterImage) {
                 posterLoadingState.classList.add('hidden');
                 posterResultState.classList.remove('hidden');
@@ -2348,7 +3297,10 @@
 
         // 初始化应用
         function init() {
+            templateLibrary = getTemplateLibraryFromStorage();
             initEventListeners();
+            renderTemplatePickers();
+            renderHomeDashboard();
             checkFormValidity();
         }
 

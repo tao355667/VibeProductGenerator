@@ -220,7 +220,7 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    if (req.method === 'GET') {
+    if (req.method === 'GET' || req.method === 'HEAD') {
         serveStatic(req, res);
         return;
     }
